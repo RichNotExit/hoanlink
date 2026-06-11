@@ -3,146 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tạo Link Shopee Hoàn Tiền</title>
+    <title>Hoàn Link Shopee</title>
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap');
+
         * { box-sizing: border-box; }
 
+        :root {
+            --orange: #ee4d2d;
+            --orange-dark: #d9381e;
+            --blue: #1677ff;
+            --green: #0f9f6e;
+            --purple: #6d4aff;
+            --text: #172033;
+            --muted: #64748b;
+            --line: #e5e7eb;
+            --bg: #f6f8fb;
+            --card: #ffffff;
+            --soft-orange: #fff3ed;
+            --soft-green: #ecfdf5;
+            --soft-blue: #eff6ff;
+            --soft-yellow: #fffbeb;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Be Vietnam Pro', 'Segoe UI', Roboto, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            background:
+                radial-gradient(circle at top left, #fff2e8 0, transparent 34%),
+                radial-gradient(circle at top right, #eaf2ff 0, transparent 36%),
+                var(--bg);
             min-height: 100vh;
             margin: 0;
-            padding: 20px 15px;
+            padding: 28px 14px;
+            color: var(--text);
         }
 
-        .box {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            width: 480px;
-            max-width: 100%;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            text-align: center;
+        .page {
+            width: 100%;
+            max-width: 760px;
+            margin: 0 auto;
         }
 
-        h2 { margin: 0 0 10px; color: #333; }
+        .hero {
+            background: linear-gradient(135deg, #ff6535, #ff8a3d);
+            color: white;
+            border-radius: 22px;
+            padding: 22px 20px;
+            box-shadow: 0 16px 35px rgba(238, 77, 45, 0.22);
+            margin-bottom: 16px;
+        }
+
+        .brand-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 27px;
+            line-height: 1.2;
+            letter-spacing: -0.6px;
+            font-weight: 700;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.35);
+            padding: 8px 10px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .hero p {
+            margin: 10px 0 0;
+            line-height: 1.55;
+            font-size: 14.5px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.94);
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid rgba(226,232,240,0.9);
+            border-radius: 22px;
+            box-shadow: 0 14px 40px rgba(15, 23, 42, 0.08);
+            padding: 18px;
+            margin-bottom: 16px;
+        }
 
         .counter {
-            color: #ff4d00;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--soft-orange);
+            color: var(--orange-dark);
+            border: 1px solid #ffd8c7;
             font-size: 14px;
-            margin-bottom: 20px;
-            font-weight: bold;
+            margin: 0 0 14px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-weight: 700;
+        }
+
+        .label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .input-wrap {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 8px;
+            align-items: center;
         }
 
         input[type="url"], input[readonly] {
             width: 100%;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            margin-top: 10px;
-            font-size: 14px;
+            padding: 14px 14px;
+            border-radius: 14px;
+            border: 1px solid #cbd5e1;
+            font-size: 14.5px;
+            font-weight: 500;
+            outline: none;
+            background: white;
         }
 
-        input[type="url"]:focus { outline: none; border-color: #ff4d00; }
+        input[type="url"]:focus, input[readonly]:focus {
+            border-color: var(--orange);
+            box-shadow: 0 0 0 4px rgba(238, 77, 45, 0.12);
+        }
 
         button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
             border: none;
-            border-radius: 6px;
-            font-size: 16px;
+            border-radius: 14px;
+            font-size: 14.5px;
             cursor: pointer;
-            transition: opacity 0.2s, transform 0.1s;
-            font-weight: bold;
+            transition: transform 0.08s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+            font-weight: 700;
+            white-space: nowrap;
+            letter-spacing: -0.1px;
         }
 
-        button:hover { opacity: 0.9; }
+        button:hover { opacity: 0.94; }
         button:active { transform: scale(0.98); }
-        button:disabled { opacity: 0.6; cursor: not-allowed; }
+        button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-        .btn-main { background: #0084ff; color: white; }
-
-        .result {
-            background: #e8f5e9;
-            padding: 20px 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            display: none;
-            border: 1px solid #c8e6c9;
+        .btn-small {
+            padding: 14px 12px;
+            background: #f1f5f9;
+            color: #334155;
+            border: 1px solid #e2e8f0;
         }
 
-        .result p { margin-top: 0; font-weight: bold; color: #2e7d32; }
+        .btn-main {
+            width: 100%;
+            padding: 15px 16px;
+            margin-top: 10px;
+            background: linear-gradient(135deg, var(--orange), #ff7a30);
+            color: white;
+            box-shadow: 0 12px 22px rgba(238, 77, 45, 0.22);
+        }
+
+        .quick-hint {
+            margin: 9px 0 0;
+            color: var(--muted);
+            font-size: 12.8px;
+            line-height: 1.55;
+        }
 
         .status {
             display: none;
             margin-top: 12px;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 14px;
-            line-height: 1.45;
+            padding: 12px 13px;
+            border-radius: 14px;
+            font-size: 13.5px;
+            line-height: 1.55;
             text-align: left;
         }
 
-        .status.info { display: block; background: #e3f2fd; color: #0d47a1; border: 1px solid #bbdefb; }
-        .status.error { display: block; background: #ffebee; color: #b71c1c; border: 1px solid #ffcdd2; }
-        .status.ok { display: block; background: #e8f5e9; color: #1b5e20; border: 1px solid #c8e6c9; }
+        .status.info { display: block; background: var(--soft-blue); color: #0b4ea2; border: 1px solid #bfdbfe; }
+        .status.error { display: block; background: #fff1f2; color: #be123c; border: 1px solid #fecdd3; }
+        .status.ok { display: block; background: var(--soft-green); color: #047857; border: 1px solid #bbf7d0; }
 
-        .flex { display: flex; gap: 10px; margin-top: 15px; }
+        .result {
+            background: linear-gradient(180deg, #ecfdf5, #f7fff9);
+            padding: 15px;
+            border-radius: 18px;
+            margin-top: 14px;
+            display: none;
+            border: 1px solid #bbf7d0;
+        }
 
-        .btn-buy-animated {
-            background: #ff4d00;
-            color: white;
+        .result-title {
+            margin: 0 0 10px;
+            font-weight: 800;
+            color: #047857;
+            text-align: center;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-copy { background: var(--green); color: white; padding: 14px; }
+        .btn-buy { background: var(--orange); color: white; padding: 14px; box-shadow: 0 8px 18px rgba(238, 77, 45, 0.22); }
+        .btn-new { background: #0f172a; color: white; padding: 14px; grid-column: span 2; }
+
+        .tool-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .btn-form { background: #15803d; color: white; padding: 13px; }
+        .btn-sheet { background: var(--purple); color: white; padding: 13px; }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .section-title h2 {
+            margin: 0;
             font-size: 18px;
-            box-shadow: 0 4px 15px rgba(255, 77, 0, 0.4);
-            animation: pulse 1.5s infinite;
+            font-weight: 750;
+            letter-spacing: -0.2px;
+        }
+
+        .history-empty {
+            color: var(--muted);
+            font-size: 14px;
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 14px;
+            padding: 13px;
+            line-height: 1.5;
+        }
+
+        .history-item {
+            border: 1px solid #e2e8f0;
+            background: #fbfdff;
+            border-radius: 16px;
+            padding: 12px;
+            margin-top: 10px;
+        }
+
+        .history-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .history-link {
             width: 100%;
-            margin-top: 15px;
+            font-size: 13px;
+            padding: 11px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            background: white;
         }
 
-        .btn-copy { background: #00a86b; color: white; }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 77, 0, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 77, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 77, 0, 0); }
+        .history-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 8px;
         }
 
-        .btn-form { background: #2e7d32; color: white; flex: 1; font-size: 14px; margin-top: 15px; }
-        .btn-sheet { background: #673ab7; color: white; flex: 1; font-size: 14px; margin-top: 15px; }
+        .history-actions button { padding: 11px; font-size: 13px; }
 
-        .group { margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 10px; }
+        .group {
+            background: linear-gradient(135deg, #eff6ff, #e0f2fe);
+            border: 1px solid #bfdbfe;
+            border-radius: 18px;
+            text-align: center;
+        }
+
+        .group h3 { margin: 0 0 8px; }
+        .group p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
         .group a {
             display: inline-block;
-            background: #0084ff;
+            background: var(--blue);
             color: white;
-            padding: 10px 15px;
-            border-radius: 6px;
+            padding: 12px 16px;
+            border-radius: 14px;
             text-decoration: none;
-            margin-top: 10px;
-            font-weight: bold;
+            margin-top: 12px;
+            font-weight: 700;
         }
 
         .guide-box {
-            margin-top: 25px;
             text-align: left;
-            background: #fff8e1;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #ffe082;
-            font-size: 14px;
-            line-height: 1.6;
-            color: #333;
+            background: var(--soft-yellow);
+            border: 1px solid #fde68a;
+            font-size: 13.5px;
+            line-height: 1.72;
         }
 
-        .guide-box h3 { margin: 0 0 10px; font-size: 16px; color: #f57c00; }
+        .guide-box h3 { margin: 0 0 10px; font-size: 16px; color: #d97706; }
         .guide-box ol { margin: 0 0 15px; padding-left: 20px; }
         .guide-box ul { margin: 0 0 15px; padding-left: 20px; list-style-type: square; }
-        .note-text { color: #d32f2f; font-weight: bold; }
+        .note-text { color: #dc2626; font-weight: 800; }
 
         .example-table {
             width: 100%;
@@ -150,44 +331,84 @@
             margin-top: 10px;
             background: white;
             text-align: center;
+            border-radius: 14px;
+            overflow: hidden;
         }
 
-        .example-table th, .example-table td { border: 1px solid #ffe082; padding: 8px; }
-        .example-table th { background: #ffecb3; color: #f57c00; font-size: 13px; }
+        .example-table th, .example-table td { border: 1px solid #fde68a; padding: 9px; }
+        .example-table th { background: #fef3c7; color: #b45309; font-size: 13px; }
         .example-table td { font-size: 14px; }
+
+        @media (max-width: 560px) {
+            body { padding: 14px 10px; }
+            .hero, .card { border-radius: 18px; }
+            .brand-line { display: block; }
+            h1 { font-size: 24px; }
+            .badge { display: inline-flex; margin-top: 10px; }
+            .input-wrap { grid-template-columns: 1fr; }
+            .btn-small { width: 100%; }
+            .action-grid, .tool-buttons, .history-actions { grid-template-columns: 1fr; }
+            .btn-new { grid-column: span 1; }
+        }
     </style>
 </head>
 
 <body>
-<div class="box">
-    <h2>🔥 Tạo Link Shopee Hoàn Tiền</h2>
+<div class="page">
+    <section class="hero">
+        <div class="brand-line">
+            <h1>🔥 Hoàn Link Shopee</h1>
+            <div class="badge">Nhanh • Dễ dùng • Tự động</div>
+        </div>
+        <p>Dán link sản phẩm Shopee, hệ thống sẽ chuyển thành link mua hàng hoàn tiền có chứa mã hoa hồng của bạn.</p>
+    </section>
 
-    <p class="counter">Đã có <span id="count">...</span> người tạo link hôm nay</p>
+    <section class="card">
+        <p class="counter">📈 Đã có <span id="count">...</span> lượt tạo link hôm nay</p>
 
-    <input type="url" id="linkInput" placeholder="Dán link Shopee hoặc link rút gọn https://vn.shp.ee/... vào đây">
-    <button class="btn-main" id="btnCreate" onclick="taoLink()">Tạo link hoàn tiền</button>
+        <label class="label" for="linkInput">Link sản phẩm cần chuyển đổi</label>
+        <div class="input-wrap">
+            <input type="url" id="linkInput" placeholder="Dán link sản phẩm Shopee bạn cần chuyển đổi vào đây" autocomplete="off">
+            <button class="btn-small" type="button" onclick="pasteFromClipboard()">📋 Dán</button>
+            <button class="btn-small" type="button" onclick="resetForNewLink()">🧹 Xóa</button>
+        </div>
+        <p class="quick-hint">Hỗ trợ link đầy đủ <strong>shopee.vn</strong> và link rút gọn <strong>vn.shp.ee</strong>. Muốn tạo link thứ 2, bấm <strong>Tạo link khác</strong> hoặc bấm <strong>Xóa</strong> rồi dán link mới.</p>
 
-    <div class="status" id="statusBox"></div>
+        <button class="btn-main" id="btnCreate" onclick="taoLink()">✨ Tạo link hoàn tiền</button>
 
-    <div class="result" id="resultBox">
-        <p>✅ Link mua hàng của bạn đã sẵn sàng</p>
-        <input id="affLink" readonly>
-        <button class="btn-copy" onclick="copyAffLink()">📋 Copy link hoàn tiền</button>
-        <button class="btn-buy-animated" onclick="muaNgay()">🛒 MUA NGAY</button>
-    </div>
+        <div class="status" id="statusBox"></div>
 
-    <div class="flex">
-        <button class="btn-form" onclick="moForm()">📝 Điền form báo đơn</button>
-        <button class="btn-sheet" onclick="moSheet()">📊 Bảng theo dõi tiền</button>
-    </div>
+        <div class="result" id="resultBox">
+            <p class="result-title">✅ Link mua hàng của bạn đã sẵn sàng</p>
+            <input id="affLink" readonly>
+            <div class="action-grid">
+                <button class="btn-copy" onclick="copyAffLink()">📋 Copy link hoàn tiền</button>
+                <button class="btn-buy" onclick="muaNgay()">🛒 MUA NGAY</button>
+                <button class="btn-new" onclick="resetForNewLink()">➕ Tạo link khác</button>
+            </div>
+        </div>
 
-    <div class="group">
+        <div class="tool-buttons">
+            <button class="btn-form" onclick="moForm()">📝 Điền form báo đơn</button>
+            <button class="btn-sheet" onclick="moSheet()">📊 Bảng theo dõi trạng thái đơn</button>
+        </div>
+    </section>
+
+    <section class="card" id="historyCard">
+        <div class="section-title">
+            <h2>🕘 Link vừa tạo</h2>
+            <button class="btn-small" type="button" onclick="clearHistory()">Xóa lịch sử</button>
+        </div>
+        <div id="historyList" class="history-empty">Chưa có link nào. Sau khi tạo link, hệ thống sẽ lưu tạm tại đây để bạn không mất link cũ khi tạo link mới.</div>
+    </section>
+
+    <section class="card group">
         <h3>💬 Nhóm hỗ trợ & Giải đáp</h3>
-        <p style="margin: 0; font-size: 14px; color: #555;">Tham gia nhóm Zalo để không bỏ lỡ thông báo bank tiền</p>
+        <p>Tham gia nhóm Zalo để không bỏ lỡ thông báo bank tiền và được hỗ trợ khi cần.</p>
         <a href="https://zalo.me/g/scvrk6cjjsil1rpxm25h" target="_blank">Tham gia Group Zalo ngay</a>
-    </div>
+    </section>
 
-    <div class="guide-box">
+    <section class="card guide-box">
         <h3>📌 Quy trình nhận hoàn tiền</h3>
         <ol>
             <li>Dán link sản phẩm Shopee bạn cần mua vào ô trống.</li>
@@ -197,7 +418,7 @@
             <li>Mua xong, copy Mã đơn hàng và quay lại đây bấm <strong>"Điền form báo đơn"</strong>.</li>
         </ol>
 
-        <hr style="border:0; border-top: 1px dashed #ccc; margin: 15px 0;">
+        <hr style="border:0; border-top: 1px dashed #d6c07c; margin: 15px 0;">
 
         <h3>⚠️ LƯU Ý: Đọc kỹ</h3>
         <ul>
@@ -207,7 +428,7 @@
             <li>Tiền hoàn (<strong>80% hoa hồng sau khi trừ thuế</strong>) sẽ được bank khi Shopee báo trạng thái đơn <strong>"Thành công"</strong>.</li>
         </ul>
 
-        <hr style="border:0; border-top: 1px dashed #ccc; margin: 15px 0;">
+        <hr style="border:0; border-top: 1px dashed #d6c07c; margin: 15px 0;">
 
         <h3>📊 Ví dụ minh họa</h3>
         <table class="example-table">
@@ -219,22 +440,19 @@
             <tr>
                 <td>200.000đ</td>
                 <td>16.000đ</td>
-                <td><strong style="color: #d32f2f;">11.520đ</strong></td>
+                <td><strong style="color: #dc2626;">11.520đ</strong></td>
             </tr>
         </table>
-        <p style="font-size: 12px; color: #666; margin-top: 8px; text-align: center; margin-bottom: 0;">
+        <p style="font-size: 12px; color: #64748b; margin-top: 8px; text-align: center; margin-bottom: 0;">
             <em>*Shopee khấu trừ 10% Thuế TNCN. Ví dụ: 16.000đ - 10% = 14.400đ. Khách nhận: 14.400đ x 80% = 11.520đ</em>
         </p>
-    </div>
+    </section>
 </div>
 
 <script>
     // ===== CẤU HÌNH =====
     const affiliateID = "17348250401";
     const subID = "traffic_web";
-
-    // Nếu bạn chạy kèm server.js cùng domain thì giữ nguyên /api/resolve
-    // Nếu backend nằm domain khác, đổi thành: https://ten-mien-cua-ban.com/api/resolve
     const RESOLVE_API = "/api/resolve";
 
     const linkGoogleForm = "https://docs.google.com/forms/d/e/1FAIpQLSdDnCC0qk1DH_Cw3v9upQeaJTih62JUQ7gUIM6lHOZx_mzVZA/viewform?usp=dialog";
@@ -271,11 +489,8 @@
     }
 
     function getHost(url) {
-        try {
-            return new URL(normalizeInputUrl(url)).hostname.toLowerCase();
-        } catch (error) {
-            return "";
-        }
+        try { return new URL(normalizeInputUrl(url)).hostname.toLowerCase(); }
+        catch (error) { return ""; }
     }
 
     function isShopeeShortLink(url) {
@@ -289,13 +504,7 @@
             const host = u.hostname.toLowerCase();
             const protocol = u.protocol.toLowerCase();
             if (protocol !== "http:" && protocol !== "https:") return false;
-
-            return (
-                host === "shopee.vn" ||
-                host.endsWith(".shopee.vn") ||
-                host === "s.shopee.vn" ||
-                host.endsWith(".shopee.vn")
-            );
+            return host === "shopee.vn" || host.endsWith(".shopee.vn") || host === "s.shopee.vn";
         } catch (error) {
             return false;
         }
@@ -305,11 +514,7 @@
         const apiUrl = `${RESOLVE_API}?url=${encodeURIComponent(shortUrl)}`;
         const response = await fetch(apiUrl, { method: "GET" });
         const data = await response.json().catch(() => ({}));
-
-        if (!response.ok || !data.finalUrl) {
-            throw new Error(data.error || "Không bung được link rút gọn");
-        }
-
+        if (!response.ok || !data.finalUrl) throw new Error(data.error || "Không bung được link rút gọn");
         return data.finalUrl;
     }
 
@@ -328,7 +533,7 @@
         clearStatus();
 
         if (!linkInput) {
-            setStatus("error", "Vui lòng dán link Shopee vào ô trống!");
+            setStatus("error", "Vui lòng dán link sản phẩm Shopee vào ô trống!");
             inputEl.focus();
             return;
         }
@@ -353,20 +558,19 @@
             document.getElementById("resultBox").style.display = "block";
             window.realLink = affLink;
 
+            addToHistory({ input: linkInput, origin: originUrl, aff: affLink, time: new Date().toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" }) });
+
             count++;
             localStorage.setItem("count", count);
             document.getElementById("count").innerText = count.toLocaleString("vi-VN");
 
-            setStatus("ok", "✅ Đã tạo link hoàn tiền thành công. Bạn có thể bấm <strong>MUA NGAY</strong> hoặc copy link gửi cho khách.");
+            setStatus("ok", "✅ Đã tạo link hoàn tiền thành công. Link này đã được lưu tạm ở mục <strong>Link vừa tạo</strong>, nên bạn có thể tạo link mới mà không mất link cũ.");
         } catch (error) {
-            setStatus(
-                "error",
-                "❌ " + error.message + "<br><br>Gợi ý: Nếu bạn đang mở file HTML trực tiếp trên máy, chức năng vn.shp.ee sẽ không chạy. Cần chạy kèm file <strong>server.js</strong> hoặc deploy lên hosting có backend."
-            );
+            setStatus("error", "❌ " + error.message + "<br><br>Gợi ý: Nếu lỗi với link rút gọn, hãy thử mở link đó trên trình duyệt rồi copy lại link Shopee đầy đủ.");
             inputEl.focus();
         } finally {
             btn.disabled = false;
-            btn.innerText = "Tạo link hoàn tiền";
+            btn.innerText = "✨ Tạo link hoàn tiền";
         }
     }
 
@@ -378,22 +582,116 @@
         window.open(window.realLink, "_blank");
     }
 
+    async function copyText(value) {
+        try { await navigator.clipboard.writeText(value); }
+        catch (error) {
+            const temp = document.createElement("textarea");
+            temp.value = value;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand("copy");
+            document.body.removeChild(temp);
+        }
+    }
+
     async function copyAffLink() {
         const value = document.getElementById("affLink").value;
         if (!value) return;
+        await copyText(value);
+        setStatus("ok", "✅ Đã copy link hoàn tiền.");
+    }
 
+    async function pasteFromClipboard() {
+        const inputEl = document.getElementById("linkInput");
         try {
-            await navigator.clipboard.writeText(value);
-            setStatus("ok", "✅ Đã copy link hoàn tiền.");
+            const text = await navigator.clipboard.readText();
+            inputEl.value = text.trim();
+            inputEl.focus();
+            clearStatus();
         } catch (error) {
-            document.getElementById("affLink").select();
-            document.execCommand("copy");
-            setStatus("ok", "✅ Đã copy link hoàn tiền.");
+            inputEl.focus();
+            setStatus("info", "Trình duyệt không cho dán tự động. Bạn hãy bấm vào ô rồi nhấn Ctrl + V.");
         }
+    }
+
+    function resetForNewLink() {
+        document.getElementById("linkInput").value = "";
+        document.getElementById("affLink").value = "";
+        document.getElementById("resultBox").style.display = "none";
+        window.realLink = "";
+        clearStatus();
+        document.getElementById("linkInput").focus();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function getHistory() {
+        return JSON.parse(localStorage.getItem("linkHistory") || "[]");
+    }
+
+    function saveHistory(items) {
+        localStorage.setItem("linkHistory", JSON.stringify(items.slice(0, 6)));
+    }
+
+    function addToHistory(item) {
+        const items = getHistory();
+        items.unshift(item);
+        saveHistory(items);
+        renderHistory();
+    }
+
+    function clearHistory() {
+        localStorage.removeItem("linkHistory");
+        renderHistory();
+    }
+
+    function shortText(text, max = 72) {
+        if (!text) return "";
+        return text.length > max ? text.slice(0, max) + "..." : text;
+    }
+
+    function renderHistory() {
+        const box = document.getElementById("historyList");
+        const items = getHistory();
+        if (!items.length) {
+            box.className = "history-empty";
+            box.innerHTML = "Chưa có link nào. Sau khi tạo link, hệ thống sẽ lưu tạm tại đây để bạn không mất link cũ khi tạo link mới.";
+            return;
+        }
+
+        box.className = "";
+        box.innerHTML = items.map((item, index) => `
+            <div class="history-item">
+                <div class="history-top">
+                    <strong>Link #${items.length - index}</strong>
+                    <span>${item.time || ""}</span>
+                </div>
+                <div style="font-size:12px;color:#64748b;margin-bottom:6px;">Nguồn: ${shortText(item.input, 84)}</div>
+                <input class="history-link" readonly value="${item.aff.replace(/"/g, '&quot;')}">
+                <div class="history-actions">
+                    <button class="btn-copy" onclick="copyHistoryLink(${index})">📋 Copy</button>
+                    <button class="btn-buy" onclick="openHistoryLink(${index})">🛒 Mua ngay</button>
+                </div>
+            </div>
+        `).join("");
+    }
+
+    async function copyHistoryLink(index) {
+        const item = getHistory()[index];
+        if (!item) return;
+        await copyText(item.aff);
+        setStatus("ok", "✅ Đã copy link trong lịch sử.");
+    }
+
+    function openHistoryLink(index) {
+        const item = getHistory()[index];
+        if (!item) return;
+        window.open(item.aff, "_blank");
     }
 
     function moForm() { window.open(linkGoogleForm, "_blank"); }
     function moSheet() { window.open(linkGoogleSheet, "_blank"); }
+
+    renderHistory();
 </script>
 </body>
 </html>
