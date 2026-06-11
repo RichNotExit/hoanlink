@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hoàn Link Shopee</title>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap');
 
@@ -11,13 +12,10 @@
 
         :root {
             --orange: #ee4d2d;
-            --orange-2: #ff7a3d;
             --orange-dark: #d9381e;
-            --green: #16a34a;
-            --green-dark: #15803d;
             --blue: #1677ff;
+            --green: #0f9f6e;
             --purple: #6d4aff;
-            --red: #dc2626;
             --text: #172033;
             --muted: #64748b;
             --line: #e5e7eb;
@@ -35,47 +33,68 @@
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
             background:
-                radial-gradient(circle at top left, #fff2e8 0, transparent 36%),
-                radial-gradient(circle at top right, #eaf2ff 0, transparent 38%),
+                radial-gradient(circle at top left, #fff2e8 0, transparent 34%),
+                radial-gradient(circle at top right, #eaf2ff 0, transparent 36%),
                 var(--bg);
             min-height: 100vh;
             margin: 0;
-            padding: 24px 12px;
+            padding: 28px 14px;
             color: var(--text);
         }
 
-        .page { width: 100%; max-width: 760px; margin: 0 auto; }
+        .page {
+            width: 100%;
+            max-width: 760px;
+            margin: 0 auto;
+        }
 
         .hero {
-            background: linear-gradient(135deg, #ff5a31, #ff8c3d);
+            background: linear-gradient(135deg, #ff6535, #ff8a3d);
             color: white;
-            border-radius: 24px;
-            padding: 24px 22px;
-            box-shadow: 0 18px 42px rgba(238, 77, 45, 0.24);
+            border-radius: 22px;
+            padding: 22px 20px;
+            box-shadow: 0 16px 35px rgba(238, 77, 45, 0.22);
             margin-bottom: 16px;
-            overflow: hidden;
-            position: relative;
         }
-        .hero:after {
-            content: "";
-            position: absolute;
-            width: 180px;
-            height: 180px;
+
+        .brand-line {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 27px;
+            line-height: 1.2;
+            letter-spacing: -0.6px;
+            font-weight: 700;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.35);
+            padding: 8px 10px;
             border-radius: 999px;
-            background: rgba(255,255,255,0.16);
-            right: -70px;
-            top: -70px;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
         }
-        .brand-line { display: flex; align-items: center; justify-content: space-between; gap: 12px; position: relative; z-index: 1; }
-        h1 { margin: 0; font-size: 28px; line-height: 1.2; letter-spacing: -0.8px; font-weight: 800; }
-        .badge { background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.35); padding: 8px 12px; border-radius: 999px; font-size: 13px; font-weight: 800; white-space: nowrap; }
-        .hero p { margin: 12px 0 0; line-height: 1.6; font-size: 14.5px; font-weight: 500; color: rgba(255,255,255,0.95); position: relative; z-index: 1; }
+
+        .hero p {
+            margin: 10px 0 0;
+            line-height: 1.55;
+            font-size: 14.5px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.94);
+        }
 
         .card {
             background: var(--card);
             border: 1px solid rgba(226,232,240,0.9);
-            border-radius: 24px;
-            box-shadow: 0 14px 42px rgba(15, 23, 42, 0.08);
+            border-radius: 22px;
+            box-shadow: 0 14px 40px rgba(15, 23, 42, 0.08);
             padding: 18px;
             margin-bottom: 16px;
         }
@@ -87,114 +106,249 @@
             background: var(--soft-orange);
             color: var(--orange-dark);
             border: 1px solid #ffd8c7;
-            font-size: 13.5px;
+            font-size: 14px;
             margin: 0 0 14px;
             padding: 8px 12px;
             border-radius: 999px;
-            font-weight: 800;
+            font-weight: 700;
         }
 
-        .label { display: block; font-size: 14px; font-weight: 800; margin-bottom: 8px; }
-        .input-wrap { display: grid; grid-template-columns: 1fr auto auto; gap: 8px; align-items: center; }
+        .label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .input-wrap {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 8px;
+            align-items: center;
+        }
+
         input[type="url"], input[readonly] {
             width: 100%;
             padding: 14px 14px;
-            border-radius: 15px;
+            border-radius: 14px;
             border: 1px solid #cbd5e1;
             font-size: 14.5px;
             font-weight: 500;
             outline: none;
             background: white;
-            color: var(--text);
         }
-        input[type="url"]:focus, input[readonly]:focus { border-color: var(--orange); box-shadow: 0 0 0 4px rgba(238, 77, 45, 0.12); }
+
+        input[type="url"]:focus, input[readonly]:focus {
+            border-color: var(--orange);
+            box-shadow: 0 0 0 4px rgba(238, 77, 45, 0.12);
+        }
 
         button {
             border: none;
-            border-radius: 15px;
+            border-radius: 14px;
             font-size: 14.5px;
             cursor: pointer;
             transition: transform 0.08s ease, opacity 0.2s ease, box-shadow 0.2s ease;
-            font-weight: 800;
+            font-weight: 700;
             white-space: nowrap;
-            letter-spacing: -0.15px;
-            font-family: inherit;
+            letter-spacing: -0.1px;
         }
+
         button:hover { opacity: 0.94; }
         button:active { transform: scale(0.98); }
-        button:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
-        .btn-small { padding: 13px 14px; background: #f1f5f9; color: var(--text); border: 1px solid #dbe3ee; }
-        .btn-main { width: 100%; padding: 15px; margin-top: 12px; background: linear-gradient(135deg, #ff4d2d, #ff7a30); color: white; box-shadow: 0 10px 20px rgba(238, 77, 45, 0.22); font-size: 15.5px; }
-        .quick-hint { margin: 10px 0 0; color: var(--muted); font-size: 12.8px; line-height: 1.55; }
+        button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-        .status { display: none; margin-top: 12px; padding: 13px 14px; border-radius: 16px; font-size: 13.5px; line-height: 1.55; font-weight: 600; }
-        .status.ok { display: block; background: #e9f9ef; color: #166534; border: 1px solid #bbf7d0; }
-        .status.error { display: block; background: #fff1f2; color: #be123c; border: 1px solid #fecdd3; }
-        .status.info { display: block; background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
-
-        .product-card {
-            display: none;
-            margin-top: 14px;
-            background: linear-gradient(180deg, #ecfdf5, #f7fff9);
-            border: 1px solid #bbf7d0;
-            border-radius: 20px;
-            padding: 14px;
+        .btn-small {
+            padding: 14px 12px;
+            background: #f1f5f9;
+            color: #334155;
+            border: 1px solid #e2e8f0;
         }
-        .product-card.show { display: block; }
-        .product-title { margin: 0 0 12px; font-size: 16px; line-height: 1.45; font-weight: 800; color: #0f172a; text-align: center; }
-        .product-layout { display: grid; grid-template-columns: 168px 1fr; gap: 14px; align-items: center; }
-        .product-img-wrap { width: 168px; height: 168px; border-radius: 18px; background: white; border: 1px solid #dbeafe; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .product-img-empty { padding: 14px; text-align: center; color: var(--muted); font-size: 12.5px; line-height: 1.45; }
-        .product-meta { display: grid; gap: 10px; }
-        .commission-box { background: white; border: 1px solid #bbf7d0; border-radius: 18px; padding: 13px; text-align: center; }
-        .commission-label { color: #047857; font-size: 13px; font-weight: 700; margin-bottom: 4px; }
-        .commission-value { color: #047857; font-size: 20px; font-weight: 900; letter-spacing: -0.4px; }
-        .mini-note { color: #64748b; font-size: 12px; line-height: 1.5; text-align: center; }
-        .result-title { margin: 2px 0 8px; color: #166534; font-weight: 800; text-align: center; }
-        .result-input { margin-top: 8px; }
-        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
-        .btn-copy { background: #16a34a; color: white; padding: 14px; }
-        .btn-buy { background: var(--orange); color: white; padding: 14px; box-shadow: 0 8px 20px rgba(238, 77, 45, 0.18); }
-        .btn-new { background: #334155; color: white; padding: 13px; margin-top: 8px; width: 100%; }
 
-        .tool-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
-        .btn-form { background: #15803d; color: white; padding: 14px; }
-        .btn-sheet { background: var(--purple); color: white; padding: 14px; }
+        .btn-main {
+            width: 100%;
+            padding: 15px 16px;
+            margin-top: 10px;
+            background: linear-gradient(135deg, var(--orange), #ff7a30);
+            color: white;
+            box-shadow: 0 12px 22px rgba(238, 77, 45, 0.22);
+        }
 
-        .section-title { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
-        .section-title h2 { margin: 0; font-size: 18px; letter-spacing: -0.3px; }
-        .history-empty { border: 1px dashed #cbd5e1; background: #f8fafc; border-radius: 16px; padding: 14px; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
-        .history-item { border: 1px solid #e2e8f0; border-radius: 16px; padding: 12px; margin-top: 10px; background: #fbfdff; }
-        .history-top { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 8px; font-size: 13px; color: var(--muted); }
-        .history-product { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
-        .history-thumb { width: 48px; height: 48px; border-radius: 12px; background: #eef2f7; object-fit: cover; flex: 0 0 auto; }
-        .history-name { font-size: 13px; font-weight: 800; line-height: 1.4; color: var(--text); }
-        .history-link { font-size: 12.5px !important; padding: 12px !important; }
-        .history-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+        .quick-hint {
+            margin: 9px 0 0;
+            color: var(--muted);
+            font-size: 12.8px;
+            line-height: 1.55;
+        }
+
+        .status {
+            display: none;
+            margin-top: 12px;
+            padding: 12px 13px;
+            border-radius: 14px;
+            font-size: 13.5px;
+            line-height: 1.55;
+            text-align: left;
+        }
+
+        .status.info { display: block; background: var(--soft-blue); color: #0b4ea2; border: 1px solid #bfdbfe; }
+        .status.error { display: block; background: #fff1f2; color: #be123c; border: 1px solid #fecdd3; }
+        .status.ok { display: block; background: var(--soft-green); color: #047857; border: 1px solid #bbf7d0; }
+
+        .result {
+            background: linear-gradient(180deg, #ecfdf5, #f7fff9);
+            padding: 15px;
+            border-radius: 18px;
+            margin-top: 14px;
+            display: none;
+            border: 1px solid #bbf7d0;
+        }
+
+        .result-title {
+            margin: 0 0 10px;
+            font-weight: 800;
+            color: #047857;
+            text-align: center;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-copy { background: var(--green); color: white; padding: 14px; }
+        .btn-buy { background: var(--orange); color: white; padding: 14px; box-shadow: 0 8px 18px rgba(238, 77, 45, 0.22); }
+        .btn-new { background: #0f172a; color: white; padding: 14px; grid-column: span 2; }
+
+        .tool-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .btn-form { background: #15803d; color: white; padding: 13px; }
+        .btn-sheet { background: var(--purple); color: white; padding: 13px; }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .section-title h2 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 750;
+            letter-spacing: -0.2px;
+        }
+
+        .history-empty {
+            color: var(--muted);
+            font-size: 14px;
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 14px;
+            padding: 13px;
+            line-height: 1.5;
+        }
+
+        .history-item {
+            border: 1px solid #e2e8f0;
+            background: #fbfdff;
+            border-radius: 16px;
+            padding: 12px;
+            margin-top: 10px;
+        }
+
+        .history-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .history-link {
+            width: 100%;
+            font-size: 13px;
+            padding: 11px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            background: white;
+        }
+
+        .history-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
         .history-actions button { padding: 11px; font-size: 13px; }
 
-        .group { text-align: center; background: linear-gradient(180deg, #eff6ff, #e0f2fe); border-color: #bfdbfe; }
+        .group {
+            background: linear-gradient(135deg, #eff6ff, #e0f2fe);
+            border: 1px solid #bfdbfe;
+            border-radius: 18px;
+            text-align: center;
+        }
+
         .group h3 { margin: 0 0 8px; }
         .group p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
-        .group a { display: inline-block; background: var(--blue); color: white; padding: 12px 16px; border-radius: 14px; text-decoration: none; margin-top: 12px; font-weight: 800; }
+        .group a {
+            display: inline-block;
+            background: var(--blue);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 14px;
+            text-decoration: none;
+            margin-top: 12px;
+            font-weight: 700;
+        }
 
-        .guide-box { text-align: left; background: var(--soft-yellow); border: 1px solid #fde68a; font-size: 13.5px; line-height: 1.72; }
+        .guide-box {
+            text-align: left;
+            background: var(--soft-yellow);
+            border: 1px solid #fde68a;
+            font-size: 13.5px;
+            line-height: 1.72;
+        }
+
         .guide-box h3 { margin: 0 0 10px; font-size: 16px; color: #d97706; }
         .guide-box ol { margin: 0 0 15px; padding-left: 20px; }
         .guide-box ul { margin: 0 0 15px; padding-left: 20px; list-style-type: square; }
         .note-text { color: #dc2626; font-weight: 800; }
 
-        @media (max-width: 620px) {
+        .example-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: white;
+            text-align: center;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .example-table th, .example-table td { border: 1px solid #fde68a; padding: 9px; }
+        .example-table th { background: #fef3c7; color: #b45309; font-size: 13px; }
+        .example-table td { font-size: 14px; }
+
+        @media (max-width: 560px) {
             body { padding: 14px 10px; }
-            .hero, .card { border-radius: 20px; }
+            .hero, .card { border-radius: 18px; }
             .brand-line { display: block; }
             h1 { font-size: 24px; }
             .badge { display: inline-flex; margin-top: 10px; }
-            .input-wrap, .tool-buttons, .action-grid, .history-actions { grid-template-columns: 1fr; }
+            .input-wrap { grid-template-columns: 1fr; }
             .btn-small { width: 100%; }
-            .product-layout { grid-template-columns: 1fr; }
-            .product-img-wrap { width: 100%; height: 220px; }
+            .action-grid, .tool-buttons, .history-actions { grid-template-columns: 1fr; }
+            .btn-new { grid-column: span 1; }
         }
     </style>
 </head>
@@ -206,7 +360,7 @@
             <h1>🔥 Hoàn Link Shopee</h1>
             <div class="badge">Nhanh • Dễ dùng • Tự động</div>
         </div>
-        <p>Dán link sản phẩm Shopee, hệ thống sẽ chuyển thành link mua hàng hoàn tiền. Nếu đọc được thông tin sản phẩm, web sẽ hiển thị tên và ảnh để bạn kiểm tra trước khi mua.</p>
+        <p>Dán link sản phẩm Shopee, hệ thống sẽ chuyển thành link mua hàng hoàn tiền có chứa mã hoa hồng của bạn.</p>
     </section>
 
     <section class="card">
@@ -221,30 +375,17 @@
         <p class="quick-hint">Hỗ trợ link đầy đủ <strong>shopee.vn</strong> và link rút gọn <strong>vn.shp.ee</strong>. Muốn tạo link thứ 2, bấm <strong>Tạo link khác</strong> hoặc bấm <strong>Xóa</strong> rồi dán link mới.</p>
 
         <button class="btn-main" id="btnCreate" onclick="taoLink()">✨ Tạo link hoàn tiền</button>
+
         <div class="status" id="statusBox"></div>
 
-        <div class="product-card" id="productCard">
-            <p class="product-title" id="productTitle">Sản phẩm Shopee</p>
-            <div class="product-layout">
-                <div class="product-img-wrap" id="productImageBox">
-                    <div class="product-img-empty">Đang tải ảnh sản phẩm...</div>
-                </div>
-                <div class="product-meta">
-                    <div class="commission-box">
-                        <div class="commission-label">Hoa hồng / hoàn tiền</div>
-                        <div class="commission-value">Theo Shopee ghi nhận</div>
-                    </div>
-                    <div class="mini-note">Số tiền hoàn thực tế sẽ được tính sau khi Shopee ghi nhận hoa hồng và đơn chuyển trạng thái hợp lệ.</div>
-                </div>
-            </div>
-
-            <p class="result-title">✅ Link mua hàng Shopee hoàn tiền</p>
-            <input class="result-input" id="affLink" readonly>
+        <div class="result" id="resultBox">
+            <p class="result-title">✅ Link mua hàng của bạn đã sẵn sàng</p>
+            <input id="affLink" readonly>
             <div class="action-grid">
-                <button class="btn-copy" onclick="copyAffLink()">📋 Copy link</button>
-                <button class="btn-buy" onclick="muaNgay()">🛒 Mua ngay</button>
+                <button class="btn-copy" onclick="copyAffLink()">📋 Copy link hoàn tiền</button>
+                <button class="btn-buy" onclick="muaNgay()">🛒 MUA NGAY</button>
+                <button class="btn-new" onclick="resetForNewLink()">➕ Tạo link khác</button>
             </div>
-            <button class="btn-new" onclick="resetForNewLink()">➕ Tạo link khác</button>
         </div>
 
         <div class="tool-buttons">
@@ -272,10 +413,9 @@
         <ol>
             <li>Dán link sản phẩm Shopee bạn cần mua vào ô trống.</li>
             <li>Hỗ trợ cả link đầy đủ <strong>shopee.vn</strong> và link rút gọn <strong>vn.shp.ee</strong>.</li>
-            <li>Bấm <strong>“Tạo link hoàn tiền”</strong>.</li>
-            <li>Kiểm tra đúng tên/ảnh sản phẩm nếu hệ thống đọc được.</li>
-            <li>Bấm <strong>“Mua ngay”</strong> để mở Shopee và chốt đơn.</li>
-            <li>Mua xong, copy Mã đơn hàng và quay lại đây bấm <strong>“Điền form báo đơn”</strong>.</li>
+            <li>Bấm <strong>"Tạo link hoàn tiền"</strong>.</li>
+            <li>Bấm nút cam <strong>"🛒 MUA NGAY"</strong> để mở Shopee và chốt đơn.</li>
+            <li>Mua xong, copy Mã đơn hàng và quay lại đây bấm <strong>"Điền form báo đơn"</strong>.</li>
         </ol>
 
         <hr style="border:0; border-top: 1px dashed #d6c07c; margin: 15px 0;">
@@ -284,24 +424,49 @@
         <ul>
             <li><span class="note-text">KHÔNG ÁP DỤNG:</span> Không hoàn tiền đối với Đơn hàng Quốc tế.</li>
             <li>Chỉ hoàn tiền đúng sản phẩm đã dán link. Nếu mua món khác, hãy dán lại link mới để tạo.</li>
-            <li>Hoa hồng/hoàn tiền hiển thị là <strong>theo Shopee ghi nhận</strong>, không cam kết số tiền cố định trước khi đơn thành công.</li>
-            <li>Thanh toán sau khi bấm nút “Mua ngay”. Nếu thoát app ra, nên tạo lại link mới.</li>
-            <li>Tiền hoàn sẽ được bank khi Shopee báo trạng thái đơn <strong>“Thành công”</strong>.</li>
+            <li>Thanh toán sau khi bấm nút "Mua ngay". Nếu thoát app ra, nên tạo lại link mới.</li>
+            <li>Tiền hoàn (<strong>80% hoa hồng sau khi trừ thuế</strong>) sẽ được bank khi Shopee báo trạng thái đơn <strong>"Thành công"</strong>.</li>
         </ul>
+
+        <hr style="border:0; border-top: 1px dashed #d6c07c; margin: 15px 0;">
+
+        <h3>📊 Ví dụ minh họa</h3>
+        <table class="example-table">
+            <tr>
+                <th>Giá trị đơn hàng</th>
+                <th>Hoa hồng Shopee trả</th>
+                <th>Tiền bạn nhận lại</th>
+            </tr>
+            <tr>
+                <td>200.000đ</td>
+                <td>16.000đ</td>
+                <td><strong style="color: #dc2626;">11.520đ</strong></td>
+            </tr>
+        </table>
+        <p style="font-size: 12px; color: #64748b; margin-top: 8px; text-align: center; margin-bottom: 0;">
+            <em>*Shopee khấu trừ 10% Thuế TNCN. Ví dụ: 16.000đ - 10% = 14.400đ. Khách nhận: 14.400đ x 80% = 11.520đ</em>
+        </p>
     </section>
 </div>
 
 <script>
+    // ===== CẤU HÌNH =====
     const affiliateID = "17348250401";
     const subID = "traffic_web";
-    const PRODUCT_API = "/api/product";
+    const RESOLVE_API = "/api/resolve";
 
     const linkGoogleForm = "https://docs.google.com/forms/d/e/1FAIpQLSdDnCC0qk1DH_Cw3v9upQeaJTih62JUQ7gUIM6lHOZx_mzVZA/viewform?usp=dialog";
     const linkGoogleSheet = "https://docs.google.com/spreadsheets/d/1mbPmuAR0HsH-h0tEQisHhQOfPxdRPpS-2iKsJWQ6Ch0/edit?usp=sharing";
 
-    function getRandomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
     let count = parseInt(localStorage.getItem("count"));
-    if (isNaN(count)) { count = getRandomInt(80, 150); localStorage.setItem("count", count); }
+    if (isNaN(count)) {
+        count = getRandomInt(80, 150);
+        localStorage.setItem("count", count);
+    }
     document.getElementById("count").innerText = count.toLocaleString("vi-VN");
 
     function setStatus(type, message) {
@@ -309,7 +474,12 @@
         box.className = "status " + type;
         box.innerHTML = message;
     }
-    function clearStatus() { const box = document.getElementById("statusBox"); box.className = "status"; box.innerHTML = ""; }
+
+    function clearStatus() {
+        const box = document.getElementById("statusBox");
+        box.className = "status";
+        box.innerHTML = "";
+    }
 
     function normalizeInputUrl(url) {
         let value = (url || "").trim();
@@ -323,16 +493,29 @@
         catch (error) { return ""; }
     }
 
-    function isSupportedInputLink(url) {
+    function isShopeeShortLink(url) {
         const host = getHost(url);
-        return host === "shopee.vn" || host.endsWith(".shopee.vn") || host === "vn.shp.ee" || host === "shp.ee" || host.endsWith(".shp.ee") || host === "s.shopee.vn";
+        return host === "vn.shp.ee" || host === "shp.ee" || host.endsWith(".shp.ee");
     }
 
-    async function getProductData(inputUrl) {
-        const response = await fetch(`${PRODUCT_API}?url=${encodeURIComponent(inputUrl)}`);
+    function isSupportedShopeeLink(url) {
+        try {
+            const u = new URL(normalizeInputUrl(url));
+            const host = u.hostname.toLowerCase();
+            const protocol = u.protocol.toLowerCase();
+            if (protocol !== "http:" && protocol !== "https:") return false;
+            return host === "shopee.vn" || host.endsWith(".shopee.vn") || host === "s.shopee.vn";
+        } catch (error) {
+            return false;
+        }
+    }
+
+    async function resolveShortLink(shortUrl) {
+        const apiUrl = `${RESOLVE_API}?url=${encodeURIComponent(shortUrl)}`;
+        const response = await fetch(apiUrl, { method: "GET" });
         const data = await response.json().catch(() => ({}));
-        if (!response.ok || !data.finalUrl) throw new Error(data.error || "Không xử lý được link sản phẩm");
-        return data;
+        if (!response.ok || !data.finalUrl) throw new Error(data.error || "Không bung được link rút gọn");
+        return data.finalUrl;
     }
 
     function buildAffiliateLink(originUrl) {
@@ -340,65 +523,50 @@
         return `https://s.shopee.vn/an_redir?origin_link=${encodedUrl}&affiliate_id=${affiliateID}&sub_id=${encodeURIComponent(subID)}`;
     }
 
-    function escapeHtml(value) {
-        return String(value || "").replace(/[&<>'"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[char]));
-    }
-
-    function renderProductCard(product, affLink) {
-        const card = document.getElementById("productCard");
-        const title = product?.title || "Sản phẩm Shopee";
-        const image = product?.image || "";
-
-        document.getElementById("productTitle").textContent = title;
-        document.getElementById("affLink").value = affLink;
-
-        const imageBox = document.getElementById("productImageBox");
-        if (image) {
-            imageBox.innerHTML = `<img src="${escapeHtml(image)}" alt="Ảnh sản phẩm" onerror="this.parentElement.innerHTML='<div class=&quot;product-img-empty&quot;>Không tải được ảnh sản phẩm.<br>Link hoàn tiền vẫn đã sẵn sàng.</div>'">`;
-        } else {
-            imageBox.innerHTML = `<div class="product-img-empty">Chưa đọc được ảnh sản phẩm.<br>Link hoàn tiền vẫn đã sẵn sàng.</div>`;
-        }
-
-        card.classList.add("show");
-    }
-
     async function taoLink() {
         const inputEl = document.getElementById("linkInput");
         const btn = document.getElementById("btnCreate");
-        const linkInput = inputEl.value.trim();
+        let linkInput = inputEl.value.trim();
 
-        document.getElementById("productCard").classList.remove("show");
+        document.getElementById("resultBox").style.display = "none";
         window.realLink = "";
         clearStatus();
 
-        if (!linkInput) { setStatus("error", "Vui lòng dán link sản phẩm Shopee vào ô trống!"); inputEl.focus(); return; }
-        if (!isSupportedInputLink(linkInput)) { setStatus("error", "Link không hợp lệ. Vui lòng dán link sản phẩm Shopee hoặc link rút gọn vn.shp.ee."); inputEl.focus(); return; }
+        if (!linkInput) {
+            setStatus("error", "Vui lòng dán link sản phẩm Shopee vào ô trống!");
+            inputEl.focus();
+            return;
+        }
 
         btn.disabled = true;
-        btn.innerText = "Đang đọc sản phẩm...";
+        btn.innerText = "Đang xử lý link...";
 
         try {
-            setStatus("info", "Đang xử lý link. Nếu là link rút gọn <strong>vn.shp.ee</strong>, hệ thống sẽ tự bung link trước...");
-            const data = await getProductData(normalizeInputUrl(linkInput));
-            const affLink = buildAffiliateLink(data.finalUrl);
+            let originUrl = normalizeInputUrl(linkInput);
+
+            if (isShopeeShortLink(originUrl)) {
+                setStatus("info", "Đang chuyển link rút gọn <strong>vn.shp.ee</strong> sang link Shopee đầy đủ...");
+                originUrl = await resolveShortLink(originUrl);
+            }
+
+            if (!isSupportedShopeeLink(originUrl)) {
+                throw new Error("Link sau khi xử lý không phải link Shopee Việt Nam hợp lệ. Vui lòng kiểm tra lại link sản phẩm.");
+            }
+
+            const affLink = buildAffiliateLink(originUrl);
+            document.getElementById("affLink").value = affLink;
+            document.getElementById("resultBox").style.display = "block";
             window.realLink = affLink;
 
-            renderProductCard(data.product, affLink);
-            addToHistory({
-                input: linkInput,
-                origin: data.finalUrl,
-                aff: affLink,
-                title: data.product?.title || "Sản phẩm Shopee",
-                image: data.product?.image || "",
-                time: new Date().toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" })
-            });
+            addToHistory({ input: linkInput, origin: originUrl, aff: affLink, time: new Date().toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" }) });
 
             count++;
             localStorage.setItem("count", count);
             document.getElementById("count").innerText = count.toLocaleString("vi-VN");
-            setStatus("ok", "✅ Đã tạo link hoàn tiền thành công. Hoa hồng/hoàn tiền sẽ tính <strong>theo Shopee ghi nhận</strong> sau khi đơn hợp lệ.");
+
+            setStatus("ok", "✅ Đã tạo link hoàn tiền thành công. Link này đã được lưu tạm ở mục <strong>Link vừa tạo</strong>, nên bạn có thể tạo link mới mà không mất link cũ.");
         } catch (error) {
-            setStatus("error", "❌ " + error.message + "<br><br>Gợi ý: Nếu lỗi với link rút gọn, hãy mở link đó trên trình duyệt rồi copy lại link Shopee đầy đủ.");
+            setStatus("error", "❌ " + error.message + "<br><br>Gợi ý: Nếu lỗi với link rút gọn, hãy thử mở link đó trên trình duyệt rồi copy lại link Shopee đầy đủ.");
             inputEl.focus();
         } finally {
             btn.disabled = false;
@@ -406,50 +574,99 @@
         }
     }
 
-    function muaNgay() { if (!window.realLink) { setStatus("error", "Bạn chưa tạo link hoàn tiền!"); return; } window.open(window.realLink, "_blank"); }
+    function muaNgay() {
+        if (!window.realLink) {
+            setStatus("error", "Bạn chưa tạo link hoàn tiền!");
+            return;
+        }
+        window.open(window.realLink, "_blank");
+    }
 
     async function copyText(value) {
         try { await navigator.clipboard.writeText(value); }
-        catch (error) { const temp = document.createElement("textarea"); temp.value = value; document.body.appendChild(temp); temp.select(); document.execCommand("copy"); document.body.removeChild(temp); }
+        catch (error) {
+            const temp = document.createElement("textarea");
+            temp.value = value;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand("copy");
+            document.body.removeChild(temp);
+        }
     }
-    async function copyAffLink() { const value = document.getElementById("affLink").value; if (!value) return; await copyText(value); setStatus("ok", "✅ Đã copy link hoàn tiền."); }
+
+    async function copyAffLink() {
+        const value = document.getElementById("affLink").value;
+        if (!value) return;
+        await copyText(value);
+        setStatus("ok", "✅ Đã copy link hoàn tiền.");
+    }
 
     async function pasteFromClipboard() {
         const inputEl = document.getElementById("linkInput");
-        try { const text = await navigator.clipboard.readText(); inputEl.value = text.trim(); inputEl.focus(); clearStatus(); }
-        catch (error) { inputEl.focus(); setStatus("info", "Trình duyệt không cho dán tự động. Bạn hãy bấm vào ô rồi nhấn Ctrl + V."); }
+        try {
+            const text = await navigator.clipboard.readText();
+            inputEl.value = text.trim();
+            inputEl.focus();
+            clearStatus();
+        } catch (error) {
+            inputEl.focus();
+            setStatus("info", "Trình duyệt không cho dán tự động. Bạn hãy bấm vào ô rồi nhấn Ctrl + V.");
+        }
     }
 
     function resetForNewLink() {
         document.getElementById("linkInput").value = "";
         document.getElementById("affLink").value = "";
-        document.getElementById("productCard").classList.remove("show");
+        document.getElementById("resultBox").style.display = "none";
         window.realLink = "";
         clearStatus();
         document.getElementById("linkInput").focus();
         window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    function getHistory() { return JSON.parse(localStorage.getItem("linkHistory") || "[]"); }
-    function saveHistory(items) { localStorage.setItem("linkHistory", JSON.stringify(items.slice(0, 6))); }
-    function addToHistory(item) { const items = getHistory(); items.unshift(item); saveHistory(items); renderHistory(); }
-    function clearHistory() { localStorage.removeItem("linkHistory"); renderHistory(); }
-    function shortText(text, max = 78) { if (!text) return ""; return text.length > max ? text.slice(0, max) + "..." : text; }
+    function getHistory() {
+        return JSON.parse(localStorage.getItem("linkHistory") || "[]");
+    }
+
+    function saveHistory(items) {
+        localStorage.setItem("linkHistory", JSON.stringify(items.slice(0, 6)));
+    }
+
+    function addToHistory(item) {
+        const items = getHistory();
+        items.unshift(item);
+        saveHistory(items);
+        renderHistory();
+    }
+
+    function clearHistory() {
+        localStorage.removeItem("linkHistory");
+        renderHistory();
+    }
+
+    function shortText(text, max = 72) {
+        if (!text) return "";
+        return text.length > max ? text.slice(0, max) + "..." : text;
+    }
 
     function renderHistory() {
         const box = document.getElementById("historyList");
         const items = getHistory();
-        if (!items.length) { box.className = "history-empty"; box.innerHTML = "Chưa có link nào. Sau khi tạo link, hệ thống sẽ lưu tạm tại đây để bạn không mất link cũ khi tạo link mới."; return; }
+        if (!items.length) {
+            box.className = "history-empty";
+            box.innerHTML = "Chưa có link nào. Sau khi tạo link, hệ thống sẽ lưu tạm tại đây để bạn không mất link cũ khi tạo link mới.";
+            return;
+        }
 
         box.className = "";
         box.innerHTML = items.map((item, index) => `
             <div class="history-item">
-                <div class="history-top"><strong>Link #${items.length - index}</strong><span>${escapeHtml(item.time || "")}</span></div>
-                <div class="history-product">
-                    ${item.image ? `<img class="history-thumb" src="${escapeHtml(item.image)}" alt="">` : `<div class="history-thumb"></div>`}
-                    <div class="history-name">${escapeHtml(shortText(item.title || item.input || "Sản phẩm Shopee", 92))}</div>
+                <div class="history-top">
+                    <strong>Link #${items.length - index}</strong>
+                    <span>${item.time || ""}</span>
                 </div>
-                <input class="history-link" readonly value="${escapeHtml(item.aff)}">
+                <div style="font-size:12px;color:#64748b;margin-bottom:6px;">Nguồn: ${shortText(item.input, 84)}</div>
+                <input class="history-link" readonly value="${item.aff.replace(/"/g, '&quot;')}">
                 <div class="history-actions">
                     <button class="btn-copy" onclick="copyHistoryLink(${index})">📋 Copy</button>
                     <button class="btn-buy" onclick="openHistoryLink(${index})">🛒 Mua ngay</button>
@@ -458,8 +675,19 @@
         `).join("");
     }
 
-    async function copyHistoryLink(index) { const item = getHistory()[index]; if (!item) return; await copyText(item.aff); setStatus("ok", "✅ Đã copy link trong lịch sử."); }
-    function openHistoryLink(index) { const item = getHistory()[index]; if (!item) return; window.open(item.aff, "_blank"); }
+    async function copyHistoryLink(index) {
+        const item = getHistory()[index];
+        if (!item) return;
+        await copyText(item.aff);
+        setStatus("ok", "✅ Đã copy link trong lịch sử.");
+    }
+
+    function openHistoryLink(index) {
+        const item = getHistory()[index];
+        if (!item) return;
+        window.open(item.aff, "_blank");
+    }
+
     function moForm() { window.open(linkGoogleForm, "_blank"); }
     function moSheet() { window.open(linkGoogleSheet, "_blank"); }
 
