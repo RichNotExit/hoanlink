@@ -1,0 +1,16 @@
+{
+  "name": "shopee-affiliate-link-tool",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tool tạo link Shopee Affiliate, hỗ trợ resolve link vn.shp.ee",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
