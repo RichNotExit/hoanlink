@@ -167,11 +167,56 @@
 
         .btn-main {
             width: 100%;
-            padding: 15px 16px;
-            margin-top: 10px;
-            background: linear-gradient(135deg, var(--orange), #ff7a30);
+            padding: 17px 18px;
+            margin-top: 14px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #ff3d21 0%, #ff6a25 55%, #ff8a1f 100%);
             color: white;
-            box-shadow: 0 12px 22px rgba(238, 77, 45, 0.22);
+            font-size: 17px;
+            font-weight: 900;
+            letter-spacing: -0.2px;
+            box-shadow: 0 12px 26px rgba(238, 77, 45, 0.34);
+            position: relative;
+            overflow: hidden;
+            animation: ctaPulse 1.55s infinite;
+        }
+
+        .btn-main::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 70%;
+            height: 100%;
+            background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.34) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-20deg);
+            animation: shineMove 2.7s infinite;
+            pointer-events: none;
+        }
+
+        .btn-main:hover,
+        .btn-main:active {
+            opacity: 1;
+            transform: translateY(-1px) scale(1.01);
+            box-shadow: 0 15px 32px rgba(238, 77, 45, 0.42);
+        }
+
+        @keyframes ctaPulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 106, 37, 0.42), 0 12px 26px rgba(238, 77, 45, 0.34);
+            }
+            70% {
+                box-shadow: 0 0 0 12px rgba(255, 106, 37, 0), 0 12px 26px rgba(238, 77, 45, 0.34);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 106, 37, 0), 0 12px 26px rgba(238, 77, 45, 0.34);
+            }
+        }
+
+        @keyframes shineMove {
+            0% { left: -120%; }
+            55% { left: 130%; }
+            100% { left: 130%; }
         }
 
         .quick-hint {
@@ -226,11 +271,25 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            margin-top: 14px;
+            margin-top: 12px;
+            max-width: 96%;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .btn-form { background: #15803d; color: white; padding: 13px; }
-        .btn-sheet { background: var(--purple); color: white; padding: 13px; }
+        .btn-form,
+        .btn-sheet {
+            color: white;
+            padding: 11px 12px;
+            min-height: 46px;
+            border-radius: 14px;
+            font-size: 13.6px;
+            font-weight: 800;
+            box-shadow: 0 7px 16px rgba(15, 23, 42, 0.10);
+        }
+
+        .btn-form { background: linear-gradient(135deg, #15803d, #16a34a); }
+        .btn-sheet { background: linear-gradient(135deg, #6042e8, #7c4dff); }
 
         .section-title {
             display: flex;
@@ -443,10 +502,11 @@
             }
 
             .btn-main {
-                padding: 13px 14px;
-                margin-top: 9px;
-                border-radius: 13px;
-                font-size: 14px;
+                padding: 15px 14px;
+                margin-top: 11px;
+                border-radius: 15px;
+                font-size: 16px;
+                min-height: 56px;
             }
 
             .status {
@@ -471,10 +531,17 @@
                 gap: 8px;
             }
 
-            .btn-copy, .btn-buy, .btn-new, .btn-form, .btn-sheet {
+            .btn-copy, .btn-buy, .btn-new {
                 padding: 12px 9px;
                 font-size: 13.2px;
                 border-radius: 12px;
+            }
+
+            .btn-form, .btn-sheet {
+                padding: 10px 8px;
+                font-size: 12.8px;
+                border-radius: 12px;
+                min-height: 43px;
             }
 
             .btn-new {
@@ -485,6 +552,7 @@
                 grid-template-columns: 1fr 1fr;
                 gap: 8px;
                 margin-top: 10px;
+                max-width: 94%;
             }
 
             .section-title {
@@ -568,7 +636,9 @@
             }
             h1 { font-size: 18px; }
             .badge { display: none; }
-            .tool-buttons, .action-grid { grid-template-columns: 1fr; }
+            .action-grid { grid-template-columns: 1fr; }
+            .tool-buttons { grid-template-columns: 1fr 1fr; gap: 6px; }
+            .btn-form, .btn-sheet { font-size: 11.8px; padding: 9px 6px; min-height: 40px; }
             .btn-new { grid-column: span 1; }
         }
 
@@ -596,7 +666,7 @@
         </div>
         <p class="quick-hint">Hỗ trợ link đầy đủ <strong>shopee.vn</strong> và link rút gọn <strong>vn.shp.ee</strong>. Muốn tạo link thứ 2, bấm <strong>Tạo link khác</strong> hoặc bấm <strong>Xóa</strong> rồi dán link mới.</p>
 
-        <button class="btn-main" id="btnCreate" onclick="taoLink()">✨ Tạo link hoàn tiền</button>
+        <button class="btn-main" id="btnCreate" onclick="taoLink()">✨ TẠO LINK HOÀN TIỀN</button>
 
         <div class="status" id="statusBox"></div>
 
