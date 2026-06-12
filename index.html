@@ -350,6 +350,228 @@
             .action-grid, .tool-buttons, .history-actions { grid-template-columns: 1fr; }
             .btn-new { grid-column: span 1; }
         }
+
+
+        /* ===== MOBILE-FIRST TUNING V3.1 ===== */
+        @media (max-width: 560px) {
+            html { scroll-behavior: smooth; }
+            body {
+                padding: 8px 8px 18px;
+                background: #f5f7fb;
+                font-size: 15px;
+            }
+
+            .page {
+                max-width: 100%;
+            }
+
+            .hero {
+                border-radius: 16px;
+                padding: 15px 14px;
+                margin-bottom: 10px;
+                box-shadow: 0 10px 22px rgba(238, 77, 45, 0.16);
+            }
+
+            .brand-line {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 8px;
+            }
+
+            h1 {
+                font-size: 20px;
+                line-height: 1.25;
+                letter-spacing: -0.35px;
+            }
+
+            .badge {
+                margin-top: 0;
+                padding: 6px 8px;
+                font-size: 10.5px;
+                max-width: 128px;
+                text-align: center;
+            }
+
+            .hero p {
+                font-size: 12.2px;
+                line-height: 1.45;
+                margin-top: 7px;
+            }
+
+            .card {
+                border-radius: 16px;
+                padding: 13px;
+                margin-bottom: 10px;
+                box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+            }
+
+            .counter {
+                font-size: 12.2px;
+                padding: 6px 9px;
+                margin-bottom: 10px;
+            }
+
+            .label {
+                font-size: 13px;
+                margin-bottom: 7px;
+            }
+
+            .input-wrap {
+                grid-template-columns: 1fr 76px 76px;
+                gap: 6px;
+            }
+
+            input[type="url"], input[readonly] {
+                min-height: 44px;
+                padding: 11px 11px;
+                border-radius: 12px;
+                font-size: 13.2px;
+            }
+
+            .btn-small {
+                width: auto;
+                padding: 11px 8px;
+                border-radius: 12px;
+                font-size: 13px;
+            }
+
+            .quick-hint {
+                font-size: 11.6px;
+                line-height: 1.45;
+                margin-top: 7px;
+            }
+
+            .btn-main {
+                padding: 13px 14px;
+                margin-top: 9px;
+                border-radius: 13px;
+                font-size: 14px;
+            }
+
+            .status {
+                padding: 10px 11px;
+                border-radius: 12px;
+                font-size: 12.3px;
+                margin-top: 10px;
+            }
+
+            .result {
+                padding: 12px;
+                border-radius: 14px;
+                margin-top: 10px;
+            }
+
+            .result-title {
+                font-size: 13.5px;
+            }
+
+            .action-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+
+            .btn-copy, .btn-buy, .btn-new, .btn-form, .btn-sheet {
+                padding: 12px 9px;
+                font-size: 13.2px;
+                border-radius: 12px;
+            }
+
+            .btn-new {
+                grid-column: span 2;
+            }
+
+            .tool-buttons {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+                margin-top: 10px;
+            }
+
+            .section-title {
+                align-items: center;
+                gap: 8px;
+            }
+
+            .section-title h2 {
+                font-size: 16px;
+                white-space: nowrap;
+            }
+
+            .section-title .btn-small {
+                padding: 10px 12px;
+                font-size: 12.5px;
+                min-width: 112px;
+            }
+
+            .history-empty {
+                font-size: 12.5px;
+                padding: 11px;
+                border-radius: 12px;
+            }
+
+            .history-item {
+                border-radius: 13px;
+                padding: 10px;
+            }
+
+            .history-link {
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            .history-actions {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .group h3 {
+                font-size: 16px;
+            }
+
+            .group p {
+                font-size: 12.5px;
+            }
+
+            .group a {
+                padding: 11px 14px;
+                border-radius: 12px;
+                font-size: 13.5px;
+            }
+
+            .guide-box {
+                font-size: 12.8px;
+                line-height: 1.62;
+            }
+
+            .guide-box h3 {
+                font-size: 14.5px;
+            }
+
+            .guide-box ol,
+            .guide-box ul {
+                padding-left: 18px;
+            }
+
+            .example-table th, .example-table td {
+                padding: 7px 5px;
+                font-size: 11.8px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .input-wrap {
+                grid-template-columns: 1fr 62px 62px;
+            }
+            .btn-small {
+                font-size: 12px;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+            h1 { font-size: 18px; }
+            .badge { display: none; }
+            .tool-buttons, .action-grid { grid-template-columns: 1fr; }
+            .btn-new { grid-column: span 1; }
+        }
+
     </style>
 </head>
 
