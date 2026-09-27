@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: shopee-hoan-phi
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: ADDLIVETAG_API_KEY
+        sync: false
+      - key: SHOPEE_AFFILIATE_ID
+        sync: false

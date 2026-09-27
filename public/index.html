@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#ee4d2d" />
+  <title>Hoàn Phí Shopee - Tạo link & xem hoa hồng</title>
+  <meta name="description" content="Dán link Shopee để xem thông tin sản phẩm, hoa hồng dự kiến và tạo link mua hàng có tracking." />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header class="top"><div class="wrap nav"><div class="brand"><span class="logo">S</span><span>HOÀN PHÍ SHOPEE</span></div><span class="pill">Dành cho bạn bè</span></div></header>
+  <main class="wrap">
+    <section class="hero">
+      <div class="eyebrow">MUA SẮM THÔNG MINH</div>
+      <h1>Dán link Shopee.<br><span>Xem ngay hoa hồng.</span></h1>
+      <p>Hệ thống lấy thông tin sản phẩm, ước tính hoa hồng và tạo link mua hàng có tracking chỉ trong vài giây.</p>
+      <form id="form" class="converter">
+        <label for="url">Link sản phẩm Shopee hoặc Item ID</label>
+        <div class="inputrow"><input id="url" name="url" autocomplete="off" placeholder="https://shopee.vn/... hoặc 1589295236" required><button type="button" id="paste">Dán</button></div>
+        <label for="member">Mã thành viên <small>(để đối soát hoa hồng)</small></label>
+        <input id="member" name="member" maxlength="60" placeholder="Ví dụ: tao, huy, ban01" value="friend">
+        <button id="submit" class="primary" type="submit"><span>Tạo link & kiểm tra hoa hồng</span></button>
+        <div id="error" class="error" hidden></div>
+      </form>
+    </section>
+
+    <section id="result" class="result" hidden>
+      <div class="result-title"><span>✓</span> Đã tìm thấy sản phẩm</div>
+      <article class="card">
+        <div id="imageWrap" class="image-wrap"><img id="image" alt="Ảnh sản phẩm"></div>
+        <div class="info">
+          <div id="category" class="category"></div>
+          <h2 id="name"></h2>
+          <div class="meta"><span id="rating"></span><span id="sales"></span></div>
+          <div class="price" id="price"></div>
+          <div class="commission-box">
+            <div><small>HOA HỒNG DỰ KIẾN</small><strong id="commission"></strong></div>
+            <div class="rate" id="rate"></div>
+          </div>
+          <div class="breakdown"><span>Shop: <b id="sellerCom"></b></span><span>Shopee: <b id="shopeeCom"></b></span></div>
+          <p class="note">* Hoa hồng là mức ước tính tại thời điểm kiểm tra. Số tiền thực nhận phụ thuộc điều kiện chương trình, trạng thái đơn và đối soát cuối cùng.</p>
+          <a id="buy" class="buy" href="#" target="_blank" rel="noopener noreferrer">Mua trên Shopee qua link hoa hồng →</a>
+          <div class="copyrow"><input id="afflink" readonly><button id="copy">Sao chép link</button></div>
+        </div>
+      </article>
+    </section>
+
+    <section class="steps"><h2>Cách sử dụng</h2><div class="stepgrid"><div><b>01</b><h3>Dán link</h3><p>Sao chép link sản phẩm từ Shopee và dán vào ô phía trên.</p></div><div><b>02</b><h3>Xem hoa hồng</h3><p>Hệ thống hiển thị giá và số hoa hồng dự kiến của sản phẩm.</p></div><div><b>03</b><h3>Mua qua link</h3><p>Mở link đã tạo để hệ thống có thể ghi nhận tracking affiliate.</p></div></div></section>
+  </main>
+  <footer><div class="wrap">Công cụ hỗ trợ tra cứu & tạo link affiliate. Không phải website chính thức của Shopee.</div></footer>
+<script src="/app.js"></script>
+</body></html>
