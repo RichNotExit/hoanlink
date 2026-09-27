@@ -1,12 +1,17 @@
 services:
   - type: web
-    name: shopee-hoan-phi
+    name: hoanlink-v4
     runtime: node
-    plan: free
     buildCommand: npm install
     startCommand: npm start
     envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
       - key: ADDLIVETAG_API_KEY
         sync: false
       - key: SHOPEE_AFFILIATE_ID
+        sync: false
+      - key: ADMIN_KEY
         sync: false

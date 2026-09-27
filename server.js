@@ -1,94 +1,18 @@
-import express from 'express';
-import helmet from 'helmet';
-import rateLimit from 'express-rate-limit';
-
-const app = express();
-const PORT = process.env.PORT || 3000;
-const API_BASE = 'https://data.addlivetag.com/product-data/product-data.php';
-
-app.use(helmet({ contentSecurityPolicy: false }));
-app.use(express.json({ limit: '20kb' }));
-app.use(express.static('public'));
-app.use('/api/', rateLimit({ windowMs: 60_000, limit: 60, standardHeaders: true, legacyHeaders: false }));
-
-const safeSub = (value, fallback = '') => String(value || fallback)
-  .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-  .replace(/đ/g, 'd').replace(/Đ/g, 'D')
-  .replace(/-/g, '_').replace(/[^a-zA-Z0-9_.]/g, '_')
-  .replace(/_+/g, '_').slice(0, 60);
-
-function isShopeeInput(value) {
-  const v = String(value || '').trim();
-  if (/^\d{6,20}$/.test(v)) return true;
-  try {
-    const u = new URL(v);
-    return /(^|\.)shopee\.vn$/i.test(u.hostname) || /(^|\.)s\.shopee\.vn$/i.test(u.hostname) || /(^|\.)vn\.shp\.ee$/i.test(u.hostname);
-  } catch { return false; }
-}
-
-app.post('/api/convert', async (req, res) => {
-  try {
-    const input = String(req.body?.url || '').trim();
-    const member = safeSub(req.body?.member, '').toUpperCase();
-    if (!/^HP[A-Z0-9]{6,12}$/.test(member)) return res.status(400).json({ error: 'ID Hoàn Tiền không hợp lệ. Hãy tải lại trang để hệ thống cấp ID.' });
-    if (!isShopeeInput(input)) return res.status(400).json({ error: 'Vui lòng nhập link Shopee Việt Nam hoặc Item ID hợp lệ.' });
-
-    const apiKey = process.env.ADDLIVETAG_API_KEY;
-    const affiliateId = process.env.SHOPEE_AFFILIATE_ID;
-    if (!apiKey || !affiliateId) return res.status(503).json({ error: 'Server chưa cấu hình ADDLIVETAG_API_KEY hoặc SHOPEE_AFFILIATE_ID.' });
-
-    const params = new URLSearchParams();
-    if (/^\d{6,20}$/.test(input)) params.set('item_id', input); else params.set('url', input);
-    params.set('affid', affiliateId);
-    params.set('sub1', member);
-    // Tracking nội bộ trung tính, nhất quán: member / campaign / source / reserved / reserved
-    params.set('sub2', 'C01');
-    params.set('sub3', 'web');
-    params.set('sub4', '');
-    params.set('sub5', '');
-
-    const upstream = await fetch(`${API_BASE}?${params}`, {
-      headers: { 'X-API-Key': apiKey, 'Accept': 'application/json' },
-      signal: AbortSignal.timeout(15000)
-    });
-    const raw = await upstream.text();
-    let data;
-    try { data = JSON.parse(raw); } catch { throw new Error('API trả dữ liệu không hợp lệ.'); }
-    if (!upstream.ok || data?.status !== 'success' || !data?.productInfo) {
-      return res.status(upstream.status >= 400 ? upstream.status : 502).json({ error: data?.message || data?.error || 'Không lấy được thông tin sản phẩm.' });
-    }
-
-    const p = data.productInfo;
-    const price = Number(p.price || 0);
-    const commission = Number(p.commission || 0);
-    const commissionRate = price > 0 ? commission / price : null;
-
-    res.json({
-      itemId: String(p.itemId || ''),
-      shopId: String(p.shopId || ''),
-      name: p.productName || p.name || 'Sản phẩm Shopee',
-      image: p.imageUrl || p.image || p.imageUrlList?.[0] || null,
-      price,
-      sales: Number(p.sales || 0),
-      rating: Number(p.rating || 0),
-      category: p.catName || null,
-      commission,
-      commissionRate,
-      sellerCommission: Number(p.sellerComFinal || 0),
-      shopeeCommission: Number(p.shopeeComFinal || 0),
-      affiliateLink: p.affLink || null,
-      originalLink: p.originLink || p.productLink || null,
-      member,
-      dataSource: p.dataSource || data.dataSource || null,
-      cashbackRate: 0.8,
-      estimatedCashback: commission * 0.8,
-      estimated: true
-    });
-  } catch (err) {
-    const timeout = err?.name === 'TimeoutError';
-    res.status(timeout ? 504 : 500).json({ error: timeout ? 'API phản hồi quá chậm, vui lòng thử lại.' : (err.message || 'Có lỗi xảy ra.') });
-  }
-});
-
-app.get('/api/health', (_req, res) => res.json({ ok: true }));
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+import express from 'express'; import helmet from 'helmet'; import rateLimit from 'express-rate-limit'; import pg from 'pg'; import crypto from 'crypto';
+const {Pool}=pg; const app=express(); const PORT=process.env.PORT||3000; const API_BASE='https://data.addlivetag.com/product-data/product-data.php';
+const pool=process.env.DATABASE_URL?new Pool({connectionString:process.env.DATABASE_URL,ssl:process.env.NODE_ENV==='production'?{rejectUnauthorized:false}:false}):null;
+app.use(helmet({contentSecurityPolicy:false})); app.use(express.json({limit:'30kb'})); app.use(express.static('public')); app.use('/api/',rateLimit({windowMs:60000,limit:90,standardHeaders:true,legacyHeaders:false}));
+const q=(t,p=[])=>pool.query(t,p); const money=n=>Math.round(Number(n||0)*100)/100;
+const safeSub=(v,f='')=>String(v||f).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').replace(/-/g,'_').replace(/[^a-zA-Z0-9_.]/g,'_').replace(/_+/g,'_').slice(0,60);
+function isShopeeInput(v){v=String(v||'').trim();if(/^\d{6,20}$/.test(v))return true;try{const u=new URL(v);return /(^|\.)shopee\.vn$/i.test(u.hostname)||/(^|\.)s\.shopee\.vn$/i.test(u.hostname)||/(^|\.)vn\.shp\.ee$/i.test(u.hostname)}catch{return false}}
+function memberId(){return 'HP'+crypto.randomBytes(5).toString('hex').toUpperCase().slice(0,8)}
+async function init(){if(!pool){console.warn('DATABASE_URL missing: database features disabled');return} await q(`CREATE TABLE IF NOT EXISTS members(id BIGSERIAL PRIMARY KEY,member_code VARCHAR(16) UNIQUE NOT NULL,token_hash CHAR(64) NOT NULL,created_at TIMESTAMPTZ DEFAULT NOW(),last_seen_at TIMESTAMPTZ DEFAULT NOW());CREATE TABLE IF NOT EXISTS links(id BIGSERIAL PRIMARY KEY,member_id BIGINT REFERENCES members(id),item_id TEXT,shop_id TEXT,product_name TEXT,price NUMERIC(16,2) DEFAULT 0,commission_est NUMERIC(16,2) DEFAULT 0,cashback_est NUMERIC(16,2) DEFAULT 0,affiliate_link TEXT,created_at TIMESTAMPTZ DEFAULT NOW());CREATE TABLE IF NOT EXISTS orders(id BIGSERIAL PRIMARY KEY,member_id BIGINT REFERENCES members(id),external_order_id TEXT UNIQUE,platform VARCHAR(20) DEFAULT 'shopee',amount NUMERIC(16,2) DEFAULT 0,commission NUMERIC(16,2) DEFAULT 0,cashback NUMERIC(16,2) DEFAULT 0,status VARCHAR(30) DEFAULT 'PENDING',created_at TIMESTAMPTZ DEFAULT NOW(),updated_at TIMESTAMPTZ DEFAULT NOW());CREATE TABLE IF NOT EXISTS withdrawals(id BIGSERIAL PRIMARY KEY,member_id BIGINT REFERENCES members(id),amount NUMERIC(16,2) NOT NULL,status VARCHAR(30) DEFAULT 'REQUESTED',note TEXT,created_at TIMESTAMPTZ DEFAULT NOW(),updated_at TIMESTAMPTZ DEFAULT NOW());`)}
+const hash=s=>crypto.createHash('sha256').update(String(s)).digest('hex'); async function auth(req,res,next){if(!pool)return res.status(503).json({error:'Database chưa được cấu hình.'});const code=safeSub(req.get('x-member-id'),'').toUpperCase(),token=req.get('x-member-token')||'';if(!code||!token)return res.status(401).json({error:'Thiếu thông tin thành viên.'});const r=await q('SELECT * FROM members WHERE member_code=$1 AND token_hash=$2',[code,hash(token)]);if(!r.rows[0])return res.status(401).json({error:'Phiên thành viên không hợp lệ.'});req.member=r.rows[0];next()}
+app.post('/api/member/init',async(req,res)=>{try{if(!pool)return res.status(503).json({error:'Database chưa được cấu hình.'});const oldCode=safeSub(req.body?.member,'').toUpperCase(),oldToken=String(req.body?.token||'');if(oldCode&&oldToken){const r=await q('UPDATE members SET last_seen_at=NOW() WHERE member_code=$1 AND token_hash=$2 RETURNING member_code',[oldCode,hash(oldToken)]);if(r.rows[0])return res.json({member:r.rows[0].member_code,token:oldToken,recovered:true})}let code,token=crypto.randomBytes(24).toString('base64url');for(let i=0;i<5;i++){code=memberId();try{await q('INSERT INTO members(member_code,token_hash) VALUES($1,$2)',[code,hash(token)]);break}catch(e){if(e.code!=='23505')throw e}}res.json({member:code,token,recovered:false})}catch(e){res.status(500).json({error:e.message})}});
+app.get('/api/dashboard',auth,async(req,res)=>{const m=req.member.id;const [o,w,l]=await Promise.all([q(`SELECT COALESCE(SUM(cashback) FILTER (WHERE status IN ('APPROVED','AVAILABLE','WITHDRAW_REQUESTED','PAID')),0) approved,COALESCE(SUM(cashback) FILTER (WHERE status='PENDING'),0) pending,COALESCE(SUM(cashback) FILTER (WHERE status='PAID'),0) paid,COALESCE(SUM(cashback) FILTER (WHERE status='AVAILABLE'),0) available FROM orders WHERE member_id=$1`,[m]),q(`SELECT COALESCE(SUM(amount) FILTER (WHERE status IN ('REQUESTED','PROCESSING')),0) requested FROM withdrawals WHERE member_id=$1`,[m]),q('SELECT id,item_id,product_name,price,commission_est,cashback_est,created_at FROM links WHERE member_id=$1 ORDER BY id DESC LIMIT 10',[m])]);const x=o.rows[0];res.json({member:req.member.member_code,balance:{available:money(x.available),pending:money(x.pending),paid:money(x.paid),withdrawRequested:money(w.rows[0].requested)},links:l.rows})});
+app.post('/api/convert',auth,async(req,res)=>{try{const input=String(req.body?.url||'').trim();if(!isShopeeInput(input))return res.status(400).json({error:'Vui lòng nhập link Shopee Việt Nam hoặc Item ID hợp lệ.'});const apiKey=process.env.ADDLIVETAG_API_KEY,affiliateId=process.env.SHOPEE_AFFILIATE_ID;if(!apiKey||!affiliateId)return res.status(503).json({error:'Server chưa cấu hình API/Affiliate ID.'});const params=new URLSearchParams();/^\d{6,20}$/.test(input)?params.set('item_id',input):params.set('url',input);params.set('affid',affiliateId);params.set('sub1',req.member.member_code);params.set('sub2','C01');params.set('sub3','web');params.set('sub4','');params.set('sub5','');const upstream=await fetch(`${API_BASE}?${params}`,{headers:{'X-API-Key':apiKey,Accept:'application/json'},signal:AbortSignal.timeout(15000)});const raw=await upstream.text();let data;try{data=JSON.parse(raw)}catch{throw new Error('API trả dữ liệu không hợp lệ.')}if(!upstream.ok||data?.status!=='success'||!data?.productInfo)return res.status(502).json({error:data?.message||data?.error||'Không lấy được thông tin sản phẩm.'});const p=data.productInfo,price=Number(p.price||0),commission=Number(p.commission||0),cashback=commission*.8,aff=p.affLink||null;const lr=await q('INSERT INTO links(member_id,item_id,shop_id,product_name,price,commission_est,cashback_est,affiliate_link) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING id',[req.member.id,String(p.itemId||''),String(p.shopId||''),p.productName||p.name||'Sản phẩm Shopee',price,commission,cashback,aff]);res.json({linkId:lr.rows[0].id,itemId:String(p.itemId||''),shopId:String(p.shopId||''),name:p.productName||p.name||'Sản phẩm Shopee',image:p.imageUrl||p.image||p.imageUrlList?.[0]||null,price,sales:Number(p.sales||0),rating:Number(p.rating||0),commission,commissionRate:price>0?commission/price:null,affiliateLink:aff,member:req.member.member_code,cashbackRate:.8,estimatedCashback:cashback,estimated:true})}catch(e){res.status(e?.name==='TimeoutError'?504:500).json({error:e?.name==='TimeoutError'?'API phản hồi quá chậm, vui lòng thử lại.':e.message})}});
+app.post('/api/withdrawals',auth,async(req,res)=>{const amount=money(req.body?.amount);if(!Number.isFinite(amount)||amount<=0)return res.status(400).json({error:'Số tiền không hợp lệ.'});const b=await q(`SELECT COALESCE(SUM(cashback) FILTER (WHERE status='AVAILABLE'),0) available FROM orders WHERE member_id=$1`,[req.member.id]);const pending=await q(`SELECT COALESCE(SUM(amount),0) requested FROM withdrawals WHERE member_id=$1 AND status IN ('REQUESTED','PROCESSING')`,[req.member.id]);const available=Number(b.rows[0].available)-Number(pending.rows[0].requested);if(amount>available)return res.status(400).json({error:'Số dư khả dụng không đủ.'});const r=await q('INSERT INTO withdrawals(member_id,amount) VALUES($1,$2) RETURNING id,status,amount,created_at',[req.member.id,amount]);res.json(r.rows[0])});
+function admin(req,res,next){if(!process.env.ADMIN_KEY||req.get('x-admin-key')!==process.env.ADMIN_KEY)return res.status(401).json({error:'Không có quyền.'});next()}
+app.get('/api/admin/summary',admin,async(req,res)=>{if(!pool)return res.status(503).json({error:'Database chưa cấu hình.'});const [m,l,o,w]=await Promise.all([q('SELECT COUNT(*) n FROM members'),q('SELECT COUNT(*) n FROM links'),q('SELECT COUNT(*) n,COALESCE(SUM(commission),0) commission,COALESCE(SUM(cashback),0) cashback FROM orders'),q("SELECT COUNT(*) n,COALESCE(SUM(amount),0) amount FROM withdrawals WHERE status IN ('REQUESTED','PROCESSING')")]);res.json({members:+m.rows[0].n,links:+l.rows[0].n,orders:+o.rows[0].n,commission:+o.rows[0].commission,cashback:+o.rows[0].cashback,withdrawals:+w.rows[0].n,withdrawalAmount:+w.rows[0].amount})});
+app.post('/api/admin/orders',admin,async(req,res)=>{const {member,orderId,amount=0,commission=0,status='PENDING'}=req.body||{};const mr=await q('SELECT id FROM members WHERE member_code=$1',[safeSub(member,'').toUpperCase()]);if(!mr.rows[0])return res.status(404).json({error:'Không tìm thấy thành viên.'});const allowed=['PENDING','APPROVED','AVAILABLE','WITHDRAW_REQUESTED','PAID','REJECTED'];if(!allowed.includes(status))return res.status(400).json({error:'Trạng thái không hợp lệ.'});const cashback=money(Number(commission)*.8);const r=await q(`INSERT INTO orders(member_id,external_order_id,amount,commission,cashback,status) VALUES($1,$2,$3,$4,$5,$6) ON CONFLICT(external_order_id) DO UPDATE SET amount=EXCLUDED.amount,commission=EXCLUDED.commission,cashback=EXCLUDED.cashback,status=EXCLUDED.status,updated_at=NOW() RETURNING *`,[mr.rows[0].id,String(orderId),money(amount),money(commission),cashback,status]);res.json(r.rows[0])});
+app.get('/api/health',(_q,res)=>res.json({ok:true,database:!!pool}));init().then(()=>app.listen(PORT,()=>console.log(`Server running on port ${PORT}`))).catch(e=>{console.error(e);process.exit(1)});
