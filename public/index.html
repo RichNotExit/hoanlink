@@ -1,53 +1,9 @@
-<!doctype html>
-<html lang="vi">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#ee4d2d" />
-  <title>Hoàn Phí Shopee - Tạo link & xem hoa hồng</title>
-  <meta name="description" content="Dán link Shopee để xem thông tin sản phẩm, hoa hồng dự kiến và tạo link mua hàng có tracking." />
-  <link rel="stylesheet" href="/style.css" />
-</head>
-<body>
-  <header class="top"><div class="wrap nav"><div class="brand"><span class="logo">S</span><span>HOÀN PHÍ SHOPEE</span></div><span class="pill">Dành cho bạn bè</span></div></header>
-  <main class="wrap">
-    <section class="hero">
-      <div class="eyebrow">MUA SẮM THÔNG MINH</div>
-      <h1>Dán link Shopee.<br><span>Xem ngay hoa hồng.</span></h1>
-      <p>Hệ thống lấy thông tin sản phẩm, ước tính hoa hồng và tạo link mua hàng có tracking chỉ trong vài giây.</p>
-      <form id="form" class="converter">
-        <label for="url">Link sản phẩm Shopee hoặc Item ID</label>
-        <div class="inputrow"><input id="url" name="url" autocomplete="off" placeholder="https://shopee.vn/... hoặc 1589295236" required><button type="button" id="paste">Dán</button></div>
-        <label for="member">Mã thành viên <small>(để đối soát hoa hồng)</small></label>
-        <input id="member" name="member" maxlength="60" placeholder="Ví dụ: tao, huy, ban01" value="friend">
-        <button id="submit" class="primary" type="submit"><span>Tạo link & kiểm tra hoa hồng</span></button>
-        <div id="error" class="error" hidden></div>
-      </form>
-    </section>
-
-    <section id="result" class="result" hidden>
-      <div class="result-title"><span>✓</span> Đã tìm thấy sản phẩm</div>
-      <article class="card">
-        <div id="imageWrap" class="image-wrap"><img id="image" alt="Ảnh sản phẩm"></div>
-        <div class="info">
-          <div id="category" class="category"></div>
-          <h2 id="name"></h2>
-          <div class="meta"><span id="rating"></span><span id="sales"></span></div>
-          <div class="price" id="price"></div>
-          <div class="commission-box">
-            <div><small>HOA HỒNG DỰ KIẾN</small><strong id="commission"></strong></div>
-            <div class="rate" id="rate"></div>
-          </div>
-          <div class="breakdown"><span>Shop: <b id="sellerCom"></b></span><span>Shopee: <b id="shopeeCom"></b></span></div>
-          <p class="note">* Hoa hồng là mức ước tính tại thời điểm kiểm tra. Số tiền thực nhận phụ thuộc điều kiện chương trình, trạng thái đơn và đối soát cuối cùng.</p>
-          <a id="buy" class="buy" href="#" target="_blank" rel="noopener noreferrer">Mua trên Shopee qua link hoa hồng →</a>
-          <div class="copyrow"><input id="afflink" readonly><button id="copy">Sao chép link</button></div>
-        </div>
-      </article>
-    </section>
-
-    <section class="steps"><h2>Cách sử dụng</h2><div class="stepgrid"><div><b>01</b><h3>Dán link</h3><p>Sao chép link sản phẩm từ Shopee và dán vào ô phía trên.</p></div><div><b>02</b><h3>Xem hoa hồng</h3><p>Hệ thống hiển thị giá và số hoa hồng dự kiến của sản phẩm.</p></div><div><b>03</b><h3>Mua qua link</h3><p>Mở link đã tạo để hệ thống có thể ghi nhận tracking affiliate.</p></div></div></section>
-  </main>
-  <footer><div class="wrap">Công cụ hỗ trợ tra cứu & tạo link affiliate. Không phải website chính thức của Shopee.</div></footer>
-<script src="/app.js"></script>
-</body></html>
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#ee4d2d"><title>Hoàn Tiền Shopee | Hoàn Tiền Shopee - TikTok - Lazada</title><meta name="description" content="Dán link Shopee, xem hoa hồng dự kiến và tạo link mua hàng để tích lũy hoàn tiền."><link rel="stylesheet" href="/style.css"></head><body>
+<header class="top"><div class="wrap nav"><div class="brand"><span class="logo">S</span><div><b>HOÀN TIỀN SHOPEE</b><small>SHOPEE · TIKTOK · LAZADA 💰💎❤</small></div></div><span class="pill">Hoàn 80% hoa hồng</span></div></header>
+<main class="wrap main">
+<section class="hero"><h1>Hoàn Tiền Shopee</h1><p>Mua đúng giá trên sàn · Tự động tính <b>80% hoa hồng</b> được hoàn</p></section>
+<section class="memberbar"><div><span>🆔 ID Hoàn Tiền:</span><strong id="memberView">HP000001</strong></div><button id="changeId" type="button">✏️ Đổi ID</button></section>
+<section class="converter"><div class="formhead"><b>🛍️ Dán link Shopee của bạn</b><button type="button" id="paste">📋 Dán nhanh</button></div><textarea id="url" placeholder="https://vn.shp.ee/... hoặc https://shopee.vn/..."></textarea><div class="daily">📊 Số link đã đổi hôm nay: <b id="todayCount">0 link</b></div><button id="submit" class="primary" type="button">⚡ TẠO LINK HOÀN TIỀN</button><div id="error" class="error" hidden></div></section>
+<section id="result" class="result" hidden><article class="product"><div class="productTop"><div class="thumb"><img id="image" alt="Ảnh sản phẩm"></div><div class="summary"><h2 id="name"></h2><div class="meta"><span id="rating"></span><span id="sales"></span></div><div class="price" id="price"></div><span class="cashbackTag">Hoàn 80% hoa hồng</span></div></div><div class="commission"><div><small>🌷 HOA HỒNG ƯỚC TÍNH</small><strong><span id="rate"></span> · <span id="commission"></span></strong></div></div><div class="cashback"><span>🎁 BẠN ĐƯỢC HOÀN DỰ KIẾN</span><strong id="cashback"></strong><small>80% hoa hồng dự kiến</small></div><div class="linkbox"><input id="afflink" readonly><button id="copy" type="button">📋 Sao chép</button></div><a id="buy" class="buy" href="#" target="_blank" rel="noopener noreferrer">🛍️ MUA & NHẬN HOÀN</a><p class="note">💡 Mua đúng sản phẩm qua link trên. Tiền hoàn chỉ được xác nhận sau khi đơn hợp lệ và hoa hồng được đối soát.</p></article></section>
+<section class="help"><p>💡 <b>Mẹo:</b> Sau khi tạo link, hãy mở sản phẩm bằng nút <b>MUA & NHẬN HOÀN</b> để giữ tracking chính xác.</p><p>👥 Nhóm Zalo: <b>HOÀN TIỀN SHOPEE - TIKTOK - LAZADA 💰💎❤</b></p></section>
+</main><footer>Hệ thống hỗ trợ tạo link affiliate & ước tính hoàn tiền. Không phải website chính thức của Shopee.</footer><script src="/app.js"></script></body></html>

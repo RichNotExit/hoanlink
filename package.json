@@ -1,9 +1,17 @@
 {
   "name": "shopee-hoan-phi",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "private": true,
   "type": "module",
-  "scripts": {"start": "node server.js"},
-  "engines": {"node": ">=18"},
-  "dependencies": {"express": "^4.21.2", "helmet": "^8.1.0", "express-rate-limit": "^7.5.0"}
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "helmet": "^8.1.0",
+    "express-rate-limit": "^7.5.0"
+  }
 }

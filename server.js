@@ -76,6 +76,8 @@ app.post('/api/convert', async (req, res) => {
       originalLink: p.originLink || p.productLink || null,
       member,
       dataSource: p.dataSource || data.dataSource || null,
+      cashbackRate: 0.8,
+      estimatedCashback: commission * 0.8,
       estimated: true
     });
   } catch (err) {

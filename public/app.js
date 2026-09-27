@@ -1,23 +1,10 @@
-const $ = (s) => document.querySelector(s);
-const money = (n) => new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND',maximumFractionDigits:0}).format(Number(n||0));
-const number = (n) => new Intl.NumberFormat('vi-VN').format(Number(n||0));
-
-$('#paste').onclick = async () => { try { $('#url').value = await navigator.clipboard.readText(); } catch { $('#url').focus(); } };
-$('#copy').onclick = async () => { await navigator.clipboard.writeText($('#afflink').value); const b=$('#copy'); const old=b.textContent;b.textContent='Đã sao chép ✓';setTimeout(()=>b.textContent=old,1400); };
-
-$('#form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const btn=$('#submit'), err=$('#error'); err.hidden=true; btn.disabled=true; btn.querySelector('span').textContent='Đang kiểm tra sản phẩm...';
-  try {
-    const r=await fetch('/api/convert',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:$('#url').value,member:$('#member').value})});
-    const d=await r.json(); if(!r.ok) throw new Error(d.error||'Không thể xử lý link.');
-    $('#name').textContent=d.name; $('#category').textContent=d.category||'Sản phẩm Shopee'; $('#price').textContent=money(d.price);
-    $('#commission').textContent=money(d.commission); $('#rate').textContent=d.commissionRate!=null?`≈ ${(d.commissionRate*100).toFixed(2)}%`:'—';
-    $('#sellerCom').textContent=money(d.sellerCommission); $('#shopeeCom').textContent=money(d.shopeeCommission);
-    $('#rating').textContent=d.rating?`★ ${d.rating}`:''; $('#sales').textContent=d.sales?`Đã bán ${number(d.sales)}`:'';
-    if(d.image){$('#image').src=d.image;$('#imageWrap').hidden=false}else{$('#imageWrap').hidden=true}
-    if(!d.affiliateLink) throw new Error('API chưa trả về link affiliate. Kiểm tra Affiliate ID trên server.');
-    $('#buy').href=d.affiliateLink; $('#afflink').value=d.affiliateLink; $('#result').hidden=false; $('#result').scrollIntoView({behavior:'smooth',block:'start'});
-  } catch(ex) { err.textContent=ex.message;err.hidden=false; }
-  finally { btn.disabled=false;btn.querySelector('span').textContent='Tạo link & kiểm tra hoa hồng'; }
-});
+const $=s=>document.querySelector(s); const RATE=.8;
+const money=n=>new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND',maximumFractionDigits:0}).format(Number(n||0));
+const number=n=>new Intl.NumberFormat('vi-VN').format(Number(n||0));
+function validId(v){return /^[A-Za-z0-9_.-]{2,30}$/.test(v)}
+let member=localStorage.getItem('cashbackMember')||'HP000001'; if(!validId(member)) member='HP000001'; $('#memberView').textContent=member;
+const dayKey=()=>`links-${new Date().toISOString().slice(0,10)}`; const renderCount=()=>$('#todayCount').textContent=`${Number(localStorage.getItem(dayKey())||0)} link`; renderCount();
+$('#changeId').onclick=()=>{const v=prompt('Nhập ID Hoàn Tiền của bạn (ví dụ HP000123):',member); if(v===null)return; const x=v.trim(); if(!validId(x))return alert('ID chỉ dùng chữ, số, dấu chấm, gạch ngang hoặc gạch dưới (2–30 ký tự).'); member=x;localStorage.setItem('cashbackMember',member);$('#memberView').textContent=member};
+$('#paste').onclick=async()=>{try{$('#url').value=await navigator.clipboard.readText()}catch{$('#url').focus()}};
+$('#copy').onclick=async()=>{try{await navigator.clipboard.writeText($('#afflink').value);const b=$('#copy'),o=b.textContent;b.textContent='✓ Đã sao chép';setTimeout(()=>b.textContent=o,1400)}catch{}};
+$('#submit').onclick=async()=>{const btn=$('#submit'),err=$('#error');err.hidden=true;btn.disabled=true;btn.textContent='⏳ ĐANG KIỂM TRA...';try{const r=await fetch('/api/convert',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:$('#url').value.trim(),member})});const d=await r.json();if(!r.ok)throw new Error(d.error||'Không thể xử lý link.');if(!d.affiliateLink)throw new Error('API chưa trả về link affiliate. Kiểm tra Affiliate ID trên Render.');$('#name').textContent=d.name;$('#price').textContent=money(d.price);$('#commission').textContent=money(d.commission);$('#cashback').textContent=money(d.commission*RATE);$('#rate').textContent=d.commissionRate!=null?`${(d.commissionRate*100).toFixed(2).replace('.00','')}%`:'—';$('#rating').textContent=d.rating?`★ ${d.rating}`:'';$('#sales').textContent=d.sales?`Đã bán ${number(d.sales)}`:'';if(d.image){$('#image').src=d.image;$('#image').style.display='block'}else $('#image').style.display='none';$('#buy').href=d.affiliateLink;$('#afflink').value=d.affiliateLink;$('#result').hidden=false;const c=Number(localStorage.getItem(dayKey())||0)+1;localStorage.setItem(dayKey(),c);renderCount();$('#result').scrollIntoView({behavior:'smooth',block:'start'})}catch(e){err.textContent=e.message;err.hidden=false}finally{btn.disabled=false;btn.textContent='⚡ TẠO LINK HOÀN TIỀN'}};
