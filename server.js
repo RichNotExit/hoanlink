@@ -29,7 +29,8 @@ function isShopeeInput(value) {
 app.post('/api/convert', async (req, res) => {
   try {
     const input = String(req.body?.url || '').trim();
-    const member = safeSub(req.body?.member, 'friend');
+    const member = safeSub(req.body?.member, '').toUpperCase();
+    if (!/^HP[A-Z0-9]{6,12}$/.test(member)) return res.status(400).json({ error: 'ID Hoàn Tiền không hợp lệ. Hãy tải lại trang để hệ thống cấp ID.' });
     if (!isShopeeInput(input)) return res.status(400).json({ error: 'Vui lòng nhập link Shopee Việt Nam hoặc Item ID hợp lệ.' });
 
     const apiKey = process.env.ADDLIVETAG_API_KEY;
@@ -40,8 +41,11 @@ app.post('/api/convert', async (req, res) => {
     if (/^\d{6,20}$/.test(input)) params.set('item_id', input); else params.set('url', input);
     params.set('affid', affiliateId);
     params.set('sub1', member);
-    params.set('sub2', 'hoanphi');
+    // Tracking nội bộ trung tính, nhất quán: member / campaign / source / reserved / reserved
+    params.set('sub2', 'C01');
     params.set('sub3', 'web');
+    params.set('sub4', '');
+    params.set('sub5', '');
 
     const upstream = await fetch(`${API_BASE}?${params}`, {
       headers: { 'X-API-Key': apiKey, 'Accept': 'application/json' },
